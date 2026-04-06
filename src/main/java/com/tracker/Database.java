@@ -35,6 +35,21 @@ public class Database {
                 role     TEXT NOT NULL DEFAULT 'user'
             )
         """);
+
+        // stores tasks created by each user
+        s.execute("""
+            CREATE TABLE IF NOT EXISTS tasks (
+                id          INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id     INTEGER NOT NULL,
+                title       TEXT NOT NULL,
+                description TEXT,
+                due_date    TEXT,
+                priority    TEXT DEFAULT 'medium',
+                task_type   TEXT,
+                done        INTEGER DEFAULT 0,
+                FOREIGN KEY (user_id) REFERENCES users(id)
+            )
+        """);
     }
 
     public static void close() {
