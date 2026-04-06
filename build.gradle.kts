@@ -1,53 +1,35 @@
 plugins {
-    java
-    application
-    id("org.javamodularity.moduleplugin") version "1.8.15"
+    id("application")
     id("org.openjfx.javafxplugin") version "0.1.0"
-    id("org.beryx.jlink") version "2.25.0"
 }
 
-group = "org.example"
-version = "1.0-SNAPSHOT"
+group = "com.tracker"
+version = "1.0"
 
 repositories {
     mavenCentral()
 }
 
-val junitVersion = "5.12.1"
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(25)
-    }
-}
-
-tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
-}
-
-application {
-    mainModule.set("org.example.project02")
-    mainClass.set("org.example.project02.HelloApplication")
+dependencies {
+    implementation("org.xerial:sqlite-jdbc:3.45.1.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
 }
 
 javafx {
-    version = "21.0.6"
+    version = "21"
     modules = listOf("javafx.controls", "javafx.fxml")
 }
 
-dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+application {
+    mainClass = "com.tracker.Main"
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
-}
-
-jlink {
-    imageZip.set(layout.buildDirectory.file("/distributions/app-${javafx.platform.classifier}.zip"))
-    options.set(listOf("--strip-debug", "--compress", "2", "--no-header-files", "--no-man-pages"))
-    launcher {
-        name = "app"
-    }
 }
