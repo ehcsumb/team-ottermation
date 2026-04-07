@@ -39,7 +39,7 @@ public class LoginController {
 
         // route to correct dashboard based on role
         if (user.isAdmin()) {
-            SceneManager.showAdminSettings();
+            SceneManager.showAdminDashboard(); // <-- changed from showAdminSettings()
         } else {
             SceneManager.showDashboard();
         }
