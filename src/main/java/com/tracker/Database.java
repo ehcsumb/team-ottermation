@@ -50,6 +50,23 @@ public class Database {
                 FOREIGN KEY (user_id) REFERENCES users(id)
             )
         """);
+
+        // stores global app settings, only ever one row
+        s.execute("""
+            CREATE TABLE IF NOT EXISTS settings (
+                id               INTEGER PRIMARY KEY DEFAULT 1,
+                default_priority TEXT DEFAULT 'medium'
+            )
+        """);
+
+        // seed a default admin account for testing
+        s.execute("""
+            INSERT OR IGNORE INTO users (username, password, role)
+            VALUES ('admin', 'admin', 'admin')
+        """);
+
+        // seed one settings row so there is always something to read
+        s.execute("INSERT OR IGNORE INTO settings (id) VALUES (1)");
     }
 
     public static void close() {
