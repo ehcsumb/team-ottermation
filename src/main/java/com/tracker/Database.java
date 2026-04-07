@@ -2,6 +2,8 @@ package com.tracker;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -50,6 +52,67 @@ public class Database {
                 FOREIGN KEY (user_id) REFERENCES users(id)
             )
         """);
+
+        // stores global app settings, only ever one row
+        s.execute("""
+            CREATE TABLE IF NOT EXISTS settings (
+                id               INTEGER PRIMARY KEY DEFAULT 1,
+                default_priority TEXT DEFAULT 'medium'
+            )
+        """);
+
+        // seed a default admin account for testing
+        s.execute("""
+            INSERT OR IGNORE INTO users (username, password, role)
+            VALUES ('admin', 'admin', 'admin')
+        """);
+
+        // seed one settings row so there is always something to read
+        s.execute("INSERT OR IGNORE INTO settings (id) VALUES (1)");
+    }
+
+    // checks username and password against the database
+    // returns a User object if correct, null if not
+    public static User login(String username, String password) {
+        try {
+            // use prepared statement to safely insert user input
+            PreparedStatement ps = conn.prepareStatement(
+                    "SELECT id, username, role FROM users WHERE username = ? AND password = ?"
+            );
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+
+            // if a row comes back, credentials are correct
+            if (rs.next()) {
+                return new User(rs.getInt("id"), rs.getString("username"), rs.getString("role"));
+            }
+        } catch (SQLException e) {
+            System.out.println("login error: " + e.getMessage());
+        }
+
+        // no match found
+        return null;
+    }
+
+    // inserts a new user into the database
+    // returns true if successful, false if username already taken
+    public static boolean register(String username, String password) {
+        try {
+            // use prepared statement to safely insert user input
+            PreparedStatement ps = conn.prepareStatement(
+                    "INSERT INTO users (username, password) VALUES (?, ?)"
+            );
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ps.executeUpdate();
+
+            // insert worked, registration successful
+            return true;
+        } catch (SQLException e) {
+            // unique constraint failed, username already taken
+            return false;
+        }
     }
 
     public static void close() {
