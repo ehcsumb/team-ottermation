@@ -2,6 +2,8 @@ package com.tracker;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -67,6 +69,30 @@ public class Database {
 
         // seed one settings row so there is always something to read
         s.execute("INSERT OR IGNORE INTO settings (id) VALUES (1)");
+    }
+
+    // checks username and password against the database
+    // returns a User object if correct, null if not
+    public static User login(String username, String password) {
+        try {
+            // use prepared statement to safely insert user input
+            PreparedStatement ps = conn.prepareStatement(
+                    "SELECT id, username, role FROM users WHERE username = ? AND password = ?"
+            );
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+
+            // if a row comes back, credentials are correct
+            if (rs.next()) {
+                return new User(rs.getInt("id"), rs.getString("username"), rs.getString("role"));
+            }
+        } catch (SQLException e) {
+            System.out.println("login error: " + e.getMessage());
+        }
+
+        // no match found
+        return null;
     }
 
     public static void close() {
