@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
  */
 public class AddTaskController {
 
+  // TODO: get list of task types and populate task type dropdown
+
   public void cancelAction() {
     SceneManager.showTaskList();
   }
