@@ -95,6 +95,26 @@ public class Database {
         return null;
     }
 
+    // inserts a new user into the database
+    // returns true if successful, false if username already taken
+    public static boolean register(String username, String password) {
+        try {
+            // use prepared statement to safely insert user input
+            PreparedStatement ps = conn.prepareStatement(
+                    "INSERT INTO users (username, password) VALUES (?, ?)"
+            );
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ps.executeUpdate();
+
+            // insert worked, registration successful
+            return true;
+        } catch (SQLException e) {
+            // unique constraint failed, username already taken
+            return false;
+        }
+    }
+
     public static void close() {
         try {
             if (conn != null) conn.close();
