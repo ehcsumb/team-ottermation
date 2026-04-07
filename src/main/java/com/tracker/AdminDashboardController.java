@@ -17,4 +17,35 @@ import javafx.scene.control.Label;
  */
 public class AdminDashboardController {
 
+    @FXML private Label totalTasksLabel;
+    @FXML private Label urgentCountLabel;
+    @FXML private Label highCountLabel;
+    @FXML private Label mediumCountLabel;
+    @FXML private Label lowCountLabel;
+
+    @FXML
+    public void initialize() {
+        // represents our mockup
+        totalTasksLabel.setText("Total tasks: 13");
+        urgentCountLabel.setText("2");
+        highCountLabel.setText("4");
+        mediumCountLabel.setText("2");
+        lowCountLabel.setText("5");
+    }
+
+
+    @FXML
+    private void handleLogout() {
+        SceneManager.showLogin();
+    }
+
+    @FXML
+    private void handleAdminSettings() {
+        SceneManager.showAdminSettings();
+    }
+
+    @FXML
+    private void handleViewTaskList() {
+        SceneManager.showDashboard();
+    }
 }
