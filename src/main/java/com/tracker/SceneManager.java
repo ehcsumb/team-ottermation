@@ -33,6 +33,10 @@ public class SceneManager {
     }
 
     // member 4 will build this
+    public static void showAdminDashboard() {
+        load("admin_dashboard.fxml");
+    }
+
     public static void showAdminSettings() {
         load("admin_settings.fxml");
     }
