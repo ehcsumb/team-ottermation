@@ -1,5 +1,7 @@
 package com.tracker;
 
+import com.tracker.dao.SettingsDAO;
+import com.tracker.dao.SQLiteSettingsDAO;
 import com.tracker.dao.SQLiteTaskTypeDAO;
 import com.tracker.dao.TaskTypeDAO;
 import javafx.beans.property.SimpleStringProperty;
@@ -12,10 +14,11 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 /**
- * Represents the admin settings controller and manages the admin settings view and its interactions.
+ * Represents the admin settings controller and manages the admin
+ * settings view and its interactions.
  *
  * @author David Renteria
- * @version 0.3.0
+ * @version 0.4.0
  * @since 4/7/2026
  */
 
@@ -38,6 +41,7 @@ public class AdminSettingsController {
 
     private final ObservableList<TaskType> taskTypes = FXCollections.observableArrayList();
     private final TaskTypeDAO taskTypeDAO = new SQLiteTaskTypeDAO();
+    private final SettingsDAO settingsDAO = new SQLiteSettingsDAO();
 
     /**
      * initializes the Admin Settings view.
@@ -51,8 +55,11 @@ public class AdminSettingsController {
         loadTaskTypes();
 
         priorityComboBox.setOnAction(e -> {
-            String selected = priorityComboBox.getValue();
-            Database.setDefaultPriority(selected);
+            try {
+                settingsDAO.setDefaultPriority(priorityComboBox.getValue());
+            } catch (SQLException ex) {
+                showError("Failed to save default priority.");
+            }
         });
 
     }
@@ -66,8 +73,11 @@ public class AdminSettingsController {
                 "Low", "Medium", "High", "Urgent!"
         ));
 
-        String savedPriority = Database.getDefaultPriority();
-        priorityComboBox.setValue(savedPriority);
+        try {
+            priorityComboBox.setValue(settingsDAO.getDefaultPriority());
+        } catch (SQLException e) {
+            showError("Failed to load default priority.");
+        }
     }
 
     /**
