@@ -135,35 +135,6 @@ public class Database {
         }
     }
 
-    public static String getDefaultPriority() {
-        try {
-            PreparedStatement ps = conn.prepareStatement(
-                    "SELECT default_priority FROM settings WHERE id = 1"
-            );
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                return rs.getString("default_priority");
-            }
-        } catch (SQLException e) {
-            System.out.println("error getting default priority: " + e.getMessage());
-        }
-
-        return "Medium"; // fallback
-    }
-
-    public static void setDefaultPriority(String priority) {
-        try {
-            PreparedStatement ps = conn.prepareStatement(
-                    "UPDATE settings SET default_priority = ? WHERE id = 1"
-            );
-            ps.setString(1, priority);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("error setting default priority: " + e.getMessage());
-        }
-    }
-
     public static Connection getConnection() {
         return conn;
     }
