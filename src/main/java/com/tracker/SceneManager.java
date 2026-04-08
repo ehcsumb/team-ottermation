@@ -43,7 +43,7 @@ public class SceneManager {
 
     public static void showTaskList() { load("task-list.fxml"); }
 
-    public static void showAddTask() { load("task-add"); }
+    public static void showAddTask() { load("task-add.fxml"); }
 
     // loads an fxml file and sets it as the current scene
     private static void load(String filename) {
