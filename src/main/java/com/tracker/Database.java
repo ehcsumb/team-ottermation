@@ -46,7 +46,7 @@ public class Database {
                 title       TEXT NOT NULL,
                 description TEXT,
                 due_date    TEXT,
-                priority    TEXT DEFAULT 'medium',
+                priority    TEXT DEFAULT 'Medium',
                 task_type   TEXT,
                 done        INTEGER DEFAULT 0,
                 FOREIGN KEY (user_id) REFERENCES users(id)
@@ -57,7 +57,7 @@ public class Database {
         s.execute("""
             CREATE TABLE IF NOT EXISTS settings (
                 id               INTEGER PRIMARY KEY DEFAULT 1,
-                default_priority TEXT DEFAULT 'medium'
+                default_priority TEXT DEFAULT 'Medium'
             )
         """);
 
@@ -132,6 +132,35 @@ public class Database {
         } catch (SQLException e) {
             // unique constraint failed, username already taken
             return false;
+        }
+    }
+
+    public static String getDefaultPriority() {
+        try {
+            PreparedStatement ps = conn.prepareStatement(
+                    "SELECT default_priority FROM settings WHERE id = 1"
+            );
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("default_priority");
+            }
+        } catch (SQLException e) {
+            System.out.println("error getting default priority: " + e.getMessage());
+        }
+
+        return "Medium"; // fallback
+    }
+
+    public static void setDefaultPriority(String priority) {
+        try {
+            PreparedStatement ps = conn.prepareStatement(
+                    "UPDATE settings SET default_priority = ? WHERE id = 1"
+            );
+            ps.setString(1, priority);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("error setting default priority: " + e.getMessage());
         }
     }
 
