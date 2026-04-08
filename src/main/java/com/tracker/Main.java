@@ -21,7 +21,7 @@ public class Main extends Application {
         stage.setResizable(false);
 
         // show the login screen first
-        SceneManager.showLogin();
+        SceneManager.showAddTask();
         stage.show();
     }
 

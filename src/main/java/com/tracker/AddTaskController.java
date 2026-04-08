@@ -1,7 +1,7 @@
 package com.tracker;
 
-import java.awt.TextArea;
-import java.awt.TextField;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuButton;
