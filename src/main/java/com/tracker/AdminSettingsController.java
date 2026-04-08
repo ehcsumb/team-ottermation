@@ -1,7 +1,7 @@
 package com.tracker;
 
+import com.tracker.dao.SQLiteTaskTypeDAO;
 import com.tracker.dao.TaskTypeDAO;
-import com.tracker.TaskType;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,7 +37,7 @@ public class AdminSettingsController {
     private TableColumn<TaskType, Void> deleteColumn;
 
     private final ObservableList<TaskType> taskTypes = FXCollections.observableArrayList();
-    private final TaskTypeDAO taskTypeDAO = new TaskTypeDAO();
+    private final TaskTypeDAO taskTypeDAO = new SQLiteTaskTypeDAO();
 
     /**
      * initializes the Admin Settings view.

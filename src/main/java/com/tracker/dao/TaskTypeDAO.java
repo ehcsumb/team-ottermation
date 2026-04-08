@@ -7,7 +7,6 @@ import java.util.List;
 
 /**
  * Defines database operations for TaskType entities.
- *
  * Provides the contract for retrieving, creating, updating,
  * deleting, and validating task types.
  *
