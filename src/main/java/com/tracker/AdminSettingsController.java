@@ -1,11 +1,11 @@
 package com.tracker;
 
 /**
- * Brief description of what this class does
- * 
+ * Represents the admin settings controller.
+ *
  * @author David Renteria
- * @since 4/7/2026
  * @version 0.1.0
+ * @since 4/7/2026
  */
-    public class AdminSettingsController {
+public class AdminSettingsController {
 }
