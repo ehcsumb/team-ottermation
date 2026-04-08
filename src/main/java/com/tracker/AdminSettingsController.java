@@ -15,7 +15,7 @@ import java.util.Optional;
  * Represents the admin settings controller and manages the admin settings view and its interactions.
  *
  * @author David Renteria
- * @version 0.2.0
+ * @version 0.3.0
  * @since 4/7/2026
  */
 
@@ -49,17 +49,25 @@ public class AdminSettingsController {
         setupPriorityBox();
         setupTable();
         loadTaskTypes();
+
+        priorityComboBox.setOnAction(e -> {
+            String selected = priorityComboBox.getValue();
+            Database.setDefaultPriority(selected);
+        });
+
     }
 
     /**
-     * Initializes the priority ComboBox with the predefined priority levels
-     * and sets the default selection to "Medium".
+     * Initializes the priority ComboBox with the predefined priority levels and
+     * sets the default value based on the saved setting in the database.
      */
     private void setupPriorityBox() {
         priorityComboBox.setItems(FXCollections.observableArrayList(
                 "Low", "Medium", "High", "Urgent!"
         ));
-        priorityComboBox.setValue("Medium");
+
+        String savedPriority = Database.getDefaultPriority();
+        priorityComboBox.setValue(savedPriority);
     }
 
     /**
