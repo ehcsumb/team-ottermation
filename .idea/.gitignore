@@ -10,3 +10,4 @@
 /httpRequests/
 !/dataSources.xml
 !/sqldialects.xml
+!/gradle.xml

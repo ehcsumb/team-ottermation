@@ -47,3 +47,4 @@ tracker.db!/.idea/dataSources.xml
 /tracker.db
 !/.idea/dataSources.xml
 !/.idea/sqldialects.xml
+!/.idea/gradle.xml
