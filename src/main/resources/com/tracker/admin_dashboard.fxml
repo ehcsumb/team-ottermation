@@ -89,18 +89,16 @@
             <children>
                 <Button text="Logout"
                         onAction="#handleLogout"
-                        prefWidth="95.0" prefHeight="28.0"
-                        style="-fx-background-color: #f0f0f0; -fx-text-fill: #333333; -fx-font-size: 12px; -fx-padding: 8" />
+                        prefWidth="95.0" prefHeight="28.0"/>
+
 
                 <Button text="Admin Settings"
                         onAction="#handleAdminSettings"
-                        prefWidth="120.0" prefHeight="30.0"
-                        style="-fx-background-color: #f0f0f0; -fx-text-fill: #333333; -fx-font-size: 12px; -fx-padding: 8" />
+                        prefWidth="120.0" prefHeight="30.0"/>
 
                 <Button text="View Task List"
                         onAction="#handleViewTaskList"
-                        prefWidth="95.0" prefHeight="28.0"
-                        style="-fx-background-color: #f0f0f0; -fx-text-fill: #333333; -fx-font-size: 12px; -fx-padding: 8" />
+                        prefWidth="95.0" prefHeight="28.0"/>
             </children>
         </HBox>
 

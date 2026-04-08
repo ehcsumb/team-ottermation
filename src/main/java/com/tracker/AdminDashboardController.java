@@ -23,6 +23,11 @@ public class AdminDashboardController {
     @FXML private Label mediumCountLabel;
     @FXML private Label lowCountLabel;
 
+    /**
+     * Initializes the admin dashboard view.
+     * Automatically called by JavaFX after the FXML contents have been loaded.
+     * Sets up the task statistics labels with mock data for now.
+     */
     @FXML
     public void initialize() {
         // represents our mockup
@@ -34,16 +39,25 @@ public class AdminDashboardController {
     }
 
 
+    /**
+     * Handles the action of the logout button.  Routes back to log-in scene
+     */
     @FXML
     private void handleLogout() {
         SceneManager.showLogin();
     }
 
+    /**
+     * Handles the action of the Admin Settings button.  Routes to Admin Settings scene
+     */
     @FXML
     private void handleAdminSettings() {
         SceneManager.showAdminSettings();
     }
 
+    /**
+     * Handles the action of the View Task Lists button.  Routes to user dashboard scene.
+     */
     @FXML
     private void handleViewTaskList() {
         SceneManager.showDashboard();
