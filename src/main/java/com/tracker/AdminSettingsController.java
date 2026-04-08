@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 /**
- * Represents the admin settings controller.
+ * Represents the admin settings controller and manages the admin settings view and its interactions.
  *
  * @author David Renteria
  * @version 0.2.0
@@ -39,6 +39,11 @@ public class AdminSettingsController {
     private final ObservableList<TaskType> taskTypes = FXCollections.observableArrayList();
     private final TaskTypeDAO taskTypeDAO = new TaskTypeDAO();
 
+    /**
+     * initializes the Admin Settings view.
+     * Automatically called by JavaFX after the FXML contents have been loaded.  Sets up priority dropdown,
+     * configures the task, type table, and loads task types from the database.
+     */
     @FXML
     public void initialize() {
         setupPriorityBox();
@@ -46,14 +51,26 @@ public class AdminSettingsController {
         loadTaskTypes();
     }
 
+    /**
+     * Initializes the priority ComboBox with the predefined priority levels
+     * and sets the default selection to "Medium".
+     */
     private void setupPriorityBox() {
         priorityComboBox.setItems(FXCollections.observableArrayList(
-                "Low", "Medium", "High", "Critical"
+                "Low", "Medium", "High", "Urgent!"
         ));
         priorityComboBox.setValue("Medium");
     }
 
+    /**
+     * Configures the Task Type table
+     * Sets the column resize policy, binds the task type name column
+     * to the takType model, adds an edit and delete button column,
+     * and assigns the data list to the table.
+     */
     private void setupTable() {
+        taskTypeTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
+
         taskTypeNameColumn.setCellValueFactory(data ->
                 new SimpleStringProperty(data.getValue().getName())
         );
@@ -64,6 +81,9 @@ public class AdminSettingsController {
         taskTypeTable.setItems(taskTypes);
     }
 
+    /**
+     * Loads task types from the database using the TaskTypeDAO and populates the taskTypes list.
+     */
     private void loadTaskTypes() {
         taskTypes.clear();
 
@@ -74,6 +94,12 @@ public class AdminSettingsController {
         }
     }
 
+    /**
+     * Handles the action of adding a new task type.
+     * Displays a TextInputDialog to get the new task type name from the user,
+     * validates the input, checks for duplicates, and if valid, adds the new task type to the
+     * database and refreshes the task type list.
+     */
     @FXML
     private void handleAddTaskType() {
         TextInputDialog dialog = new TextInputDialog();
@@ -106,6 +132,13 @@ public class AdminSettingsController {
         }
     }
 
+    /**
+     * Handles editing an existing task type.
+     * Displays a TextInputDialog pre-filled with the current task type name, allowing the user to update it.
+     * Validates the input, checks for duplicates, and if valid,
+     * updates the task type in the database and refreshes the task type list.
+     * @param taskType the task type being edited
+     */
     private void handleEdit(TaskType taskType) {
         TextInputDialog dialog = new TextInputDialog(taskType.getName());
         dialog.setTitle("Edit Task Type");
@@ -132,6 +165,12 @@ public class AdminSettingsController {
         }
     }
 
+    /**
+     * Handles deleting a task type
+     * Prompts the user with a confirmation dialog to confirm deletion of the selected task type.
+     * If the user confirms, deletes the task type from the database and refreshes the task type list.
+     * @param taskType the task type being deleted
+     */
     private void handleDelete(TaskType taskType) {
         Alert confirm = new Alert(
                 Alert.AlertType.CONFIRMATION,
@@ -154,6 +193,10 @@ public class AdminSettingsController {
         }
     }
 
+    /**
+     * Adds an "Edit" button to each row of the task type table.
+     * When clicked, it calls the handleEdit method for the corresponding task type.
+     */
     private void addEditButton() {
         editColumn.setCellFactory(col -> new TableCell<>() {
             private final Button button = new Button("Edit");
@@ -173,6 +216,10 @@ public class AdminSettingsController {
         });
     }
 
+    /**
+     * Adds a delete button to each row in the table.
+     * Allows user to remove task type.
+     */
     private void addDeleteButton() {
         deleteColumn.setCellFactory(col -> new TableCell<>() {
             private final Button button = new Button("Delete");
@@ -193,11 +240,19 @@ public class AdminSettingsController {
         });
     }
 
+    /**
+     * Handles the action of returning to the admin dashboard.
+     */
     @FXML
     private void handleBackToDashboard() {
-        // SceneManager.switchScene("admin_dashboard.fxml");
+        SceneManager.showAdminDashboard();
     }
 
+    /**
+     * Displays a warning alert with specified message
+     *
+     * @param message the warning message to display
+     */
     private void showWarning(String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setHeaderText(null);
@@ -205,6 +260,11 @@ public class AdminSettingsController {
         alert.showAndWait();
     }
 
+    /**
+     * Displays an error alert with specified message
+     *
+     * @param message the error message to display
+     */
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText("Error");

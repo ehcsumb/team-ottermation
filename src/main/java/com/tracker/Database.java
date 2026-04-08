@@ -69,6 +69,26 @@ public class Database {
 
         // seed one settings row so there is always something to read
         s.execute("INSERT OR IGNORE INTO settings (id) VALUES (1)");
+
+        //admin setting for task types, stored in a separate table for easy expansion in the future
+        s.execute("""
+    CREATE TABLE IF NOT EXISTS task_types (
+        id      INTEGER PRIMARY KEY AUTOINCREMENT,
+        name    TEXT NOT NULL UNIQUE
+    )
+""");
+
+        //default task type of Appointment
+        s.execute("""
+    INSERT OR IGNORE INTO task_types (name)
+    VALUES ('Appointment')
+""");
+
+        //default task type of Issue
+        s.execute("""
+    INSERT OR IGNORE INTO task_types (name)
+    VALUES ('Issue')
+""");
     }
 
     // checks username and password against the database
@@ -113,6 +133,10 @@ public class Database {
             // unique constraint failed, username already taken
             return false;
         }
+    }
+
+    public static Connection getConnection() {
+        return conn;
     }
 
     public static void close() {
