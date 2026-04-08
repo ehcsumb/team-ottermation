@@ -46,7 +46,7 @@ public class Database {
                 title       TEXT NOT NULL,
                 description TEXT,
                 due_date    TEXT,
-                priority    TEXT DEFAULT 'medium',
+                priority    TEXT DEFAULT 'Medium',
                 task_type   TEXT,
                 done        INTEGER DEFAULT 0,
                 FOREIGN KEY (user_id) REFERENCES users(id)
