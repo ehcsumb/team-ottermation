@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * which handles all database operations related to task types.
  *
  * @author David Renteria
- * @version 0.1.0
+ * @version 0.2.0
  * @since 4/8/2026
  */
 
