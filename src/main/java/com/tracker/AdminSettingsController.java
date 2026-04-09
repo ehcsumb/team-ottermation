@@ -175,6 +175,12 @@ public class AdminSettingsController {
         }
 
         try {
+
+            if (taskTypeDAO.existsByName(updatedName)) {
+                showWarning("That task type already exists.");
+                return;
+            }
+
             taskTypeDAO.updateTaskType(taskType.getId(), updatedName);
             loadTaskTypes();
 
