@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="460.0" spacing="25.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tracker.AdminDashboardController">
+
+    <padding>
+        <Insets bottom="25.0" left="25.0" right="25.0" top="30.0" />
+    </padding>
+
+    <children>
+
+        <Label alignment="CENTER" prefHeight="95.0" prefWidth="195.0" style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-padding: 6 14 6 14;" text="Dashboard" textAlignment="CENTER" />
+
+        <Label fx:id="totalTasksLabel" alignment="CENTER" prefHeight="42.0" prefWidth="109.0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #444444;" text="Total tasks: ##" />
+
+        <HBox alignment="CENTER" spacing="12.0">
+
+            <VBox.margin>
+                <Insets top="20" />
+            </VBox.margin>
+
+            <children>
+                <VBox alignment="CENTER" prefHeight="100.0" prefWidth="90.0" spacing="10.0" style="-fx-background-color: #F5BEBD;">
+                    <children>
+                        <Label style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Urgent!" />
+                        <Label fx:id="urgentCountLabel" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="2" />
+                    </children>
+                </VBox>
+
+                <VBox alignment="CENTER" prefHeight="100.0" prefWidth="90.0" spacing="10.0" style="-fx-background-color: #F9DEBF;">
+                    <children>
+                        <Label style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="High" />
+                        <Label fx:id="highCountLabel" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="4" />
+                    </children>
+                </VBox>
+
+                <VBox alignment="CENTER" prefHeight="100.0" prefWidth="90.0" spacing="10.0" style="-fx-background-color: #FFFFC2;">
+                    <children>
+                        <Label style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Medium" />
+                        <Label fx:id="mediumCountLabel" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="2" />
+                    </children>
+                </VBox>
+
+                <VBox alignment="CENTER" prefHeight="100.0" prefWidth="90.0" spacing="10.0" style="-fx-background-color: #C9FDDF;">
+                    <children>
+                        <Label style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Low" />
+                        <Label fx:id="lowCountLabel" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="5" />
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+
+        <Region prefHeight="75.0" prefWidth="410.0" />
+
+        <HBox alignment="CENTER" prefHeight="63.0" prefWidth="410.0" spacing="40.0">
+            <children>
+                <Button onAction="#handleLogout" prefHeight="28.0" prefWidth="100.0" text="Logout" />
+
+
+                <Button onAction="#handleAdminSettings" prefHeight="17.0" prefWidth="100.0" text="View Task List" />
+
+                <Button onAction="#handleViewTaskList" prefHeight="28.0" prefWidth="100.0" text="Add Task" />
+            </children>
+        </HBox>
+
+    </children>
+</VBox>
