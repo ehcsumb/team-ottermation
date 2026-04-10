@@ -61,6 +61,14 @@ public class Database {
             )
         """);
 
+        // stores task types managed by admin
+        s.execute("""
+            CREATE TABLE IF NOT EXISTS task_types (
+                id   INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL UNIQUE
+            )
+        """);
+
         // seed a default admin account for testing
         s.execute("""
             INSERT OR IGNORE INTO users (username, password, role)
@@ -70,25 +78,9 @@ public class Database {
         // seed one settings row so there is always something to read
         s.execute("INSERT OR IGNORE INTO settings (id) VALUES (1)");
 
-        //admin setting for task types, stored in a separate table for easy expansion in the future
-        s.execute("""
-    CREATE TABLE IF NOT EXISTS task_types (
-        id      INTEGER PRIMARY KEY AUTOINCREMENT,
-        name    TEXT NOT NULL UNIQUE
-    )
-""");
-
-        //default task type of Appointment
-        s.execute("""
-    INSERT OR IGNORE INTO task_types (name)
-    VALUES ('Appointment')
-""");
-
-        //default task type of Issue
-        s.execute("""
-    INSERT OR IGNORE INTO task_types (name)
-    VALUES ('Issue')
-""");
+        // seed default task types
+        s.execute("INSERT OR IGNORE INTO task_types (name) VALUES ('Appointment')");
+        s.execute("INSERT OR IGNORE INTO task_types (name) VALUES ('Issue')");
     }
 
     // checks username and password against the database
@@ -135,6 +127,7 @@ public class Database {
         }
     }
 
+    // returns the shared connection so DAO classes can use it
     public static Connection getConnection() {
         return conn;
     }
