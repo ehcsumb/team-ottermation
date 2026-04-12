@@ -26,7 +26,7 @@
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="12.0">
                      <children>
-                        <Text fx:id="taskDesc" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" HBox.hgrow="ALWAYS">
+                        <Text fx:id="taskTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Task title ex: Make sure to pick up such n such" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
                            </HBox.margin>
