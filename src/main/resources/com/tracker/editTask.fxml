@@ -7,22 +7,22 @@
 <VBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="460.0" spacing="25.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tracker.EditTaskController">
    <children>
       <Label prefHeight="46.0" prefWidth="155.0" style="-fx-font-size: 30px; -fx-font-weight: Bold; -fx-label-padding: 6 14;" text="Edit Task" textAlignment="CENTER" />
-      <TextField promptText="Enter Title" />
+      <TextField fx:id="taskTitle" promptText="Enter Title" />
       <HBox alignment="CENTER" prefHeight="37.0" prefWidth="410.0" spacing="20.0">
          <children>
             <VBox prefHeight="100.0" prefWidth="175.0">
                <children>
-                  <DatePicker promptText="Due Date" />
+                  <DatePicker fx:id="dueDate" promptText="Due Date" />
                </children>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <ChoiceBox prefHeight="25.0" prefWidth="99.0" />
+                  <ChoiceBox fx:id="priorityDropDown" prefHeight="25.0" prefWidth="99.0" />
                </children>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <ChoiceBox prefWidth="150.0" />
+                  <ChoiceBox fx:id="taskTypeDropDown" prefWidth="150.0" />
                </children>
             </VBox>
          </children>
@@ -35,14 +35,14 @@
       </HBox>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <TextArea prefHeight="200.0" prefWidth="200.0" />
+            <TextArea fx:id="taskDetails" prefHeight="200.0" prefWidth="200.0" />
          </children>
       </VBox>
       <HBox alignment="CENTER" prefHeight="18.0" prefWidth="410.0">
          <children>
             <VBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0">
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Delete" textAlignment="CENTER">
+                  <Button fx:id="deleteButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Delete" textAlignment="CENTER">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -51,7 +51,7 @@
             </VBox>
             <VBox alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Save Task" />
+                  <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Save Task" />
                </children>
             </VBox>
          </children>
