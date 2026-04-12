@@ -19,7 +19,8 @@ public class Task {
   private TaskPriority priority;
   private String taskType;
   private boolean completed = false;
-//  protected Integer id;
+  private Integer id;
+  private Integer userId;
 
   public Task() {
     setTitle(null);
@@ -27,7 +28,8 @@ public class Task {
     setDueDate(null);
     setPriority(TaskPriority.MEDIUM);
     taskType = null;
-//    id = null;
+    id = null;
+    userId = null;
   }
 
   public Task(
@@ -36,7 +38,9 @@ public class Task {
       LocalDate dueDate,
       TaskPriority priority,
       String taskType,
-      boolean completed
+      boolean completed,
+      Integer id,
+      Integer userId
   ) {
 
   }
@@ -82,23 +86,11 @@ public class Task {
     this.priority = priority;
   }
 
-  public TaskType getTaskType() {
+  public String getTaskType() {
     return taskType;
   }
 
-  public void setTaskType(TaskType taskType) throws SQLException {
-    if (taskType == null) {
-      SQLiteTaskTypeDAO dao = new SQLiteTaskTypeDAO();
-      List<TaskType> taskTypes = dao.getAllTaskTypes();
-      // if no task types are defined, assign null to task type
-      if (taskTypes.isEmpty()) {
-        this.taskType = null;
-        return;
-      }
-      // else set to the first task type
-      this.taskType = taskTypes.get(0);
-      return;
-    }
+  public void setTaskType(String taskType) throws SQLException {
     this.taskType = taskType;
   }
 
@@ -112,5 +104,21 @@ public class Task {
 
   public void setToIncomplete() {
     this.completed = false;
+  }
+
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+  public Integer getUserId() {
+    return userId;
+  }
+
+  public void setUserId(Integer userId) {
+    this.userId = userId;
   }
 }
