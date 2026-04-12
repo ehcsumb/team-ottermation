@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="460.0" spacing="25.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tracker.AdminDashboardController">
+<VBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="460.0" spacing="25.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tracker.UserDashboardController">
 
     <padding>
         <Insets bottom="25.0" left="25.0" right="25.0" top="30.0" />
@@ -63,9 +63,9 @@
                 <Button onAction="#handleLogout" prefHeight="28.0" prefWidth="100.0" text="Logout" />
 
 
-                <Button onAction="#handleAdminSettings" prefHeight="17.0" prefWidth="100.0" text="View Task List" />
+                <Button onAction="#handleViewTasksList" prefHeight="17.0" prefWidth="100.0" text="View Task List" />
 
-                <Button onAction="#handleViewTaskList" prefHeight="28.0" prefWidth="100.0" text="Add Task" />
+                <Button onAction="#handleAddTask" prefHeight="28.0" prefWidth="100.0" text="Add Task" />
             </children>
         </HBox>
 
