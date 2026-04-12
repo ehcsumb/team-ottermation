@@ -36,7 +36,7 @@ public class UserDashboardController {
 
     @FXML
     public void handleViewTasksList()
-    {/*SceneManager.showTaskList();*/}
+    {SceneManager.showTaskList();}
 
     @FXML
     public void handleAddTask()
