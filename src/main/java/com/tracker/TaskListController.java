@@ -1,5 +1,7 @@
 package com.tracker;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.fxml.FXML;
@@ -15,8 +17,6 @@ import javafx.scene.control.MenuButton;
  * @since 4/12/26
  */
 public class TaskListController {
-
-
 
 
   public void handleAddTask() {
