@@ -22,7 +22,7 @@ public class TaskListItemController {
   public void setItemData(String title, String priority, String type, Integer taskId) {
     taskTitle.setText(title);
     taskPriority.setText(priority);
-    taskType.setText(priority);
+    taskType.setText(type);
     this.taskId = taskId;
 
     btn_editTask.setOnAction(e -> {

@@ -42,7 +42,14 @@ public class Task {
       Integer id,
       Integer userId
   ) {
-
+      setTitle(title);
+      setDescription(description);
+      setDueDate(dueDate);
+      setPriority(priority);
+      setTaskType(taskType);
+      this.completed = completed;
+      this.id = id;
+      this.userId = userId;
   }
 
   public String getTitle() {
@@ -71,6 +78,7 @@ public class Task {
   public void setDueDate(LocalDate dueDate) {
     if (dueDate == null) {
       this.dueDate = LocalDate.now().plusWeeks(1);
+      return;
     }
     this.dueDate = dueDate;
   }
@@ -90,7 +98,7 @@ public class Task {
     return taskType;
   }
 
-  public void setTaskType(String taskType) throws SQLException {
+  public void setTaskType(String taskType) {
     this.taskType = taskType;
   }
 
