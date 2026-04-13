@@ -1,35 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 
-<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" spacing="12.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tracker.TaskListItemController">
-  <padding>
-    <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
-  </padding>
-
-  <Label fx:id="taskTitle" maxHeight="-Infinity" prefWidth="175.0" text="Task Title Ex:  Make sure to do the thingTask Title Ex:  Make sure to do the thing" HBox.hgrow="ALWAYS">
-    <HBox.margin>
-      <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
-    </HBox.margin>
-  </Label>
-  <Region HBox.hgrow="ALWAYS" />
-  <HBox alignment="CENTER_RIGHT" prefWidth="244.0" spacing="12.0">
-    <padding>
-      <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
-    </padding>
-    <Label fx:id="taskPriority" minWidth="70.0" text="Task Priority" />
-    <Label fx:id="taskType" minWidth="70.0" text="Task Type" />
-    <Button fx:id="btn_editTask" minWidth="40.0" mnemonicParsing="false" text="Edit">
-      <HBox.margin>
-        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
-      </HBox.margin>
-    </Button>
-  </HBox>
+<VBox alignment="CENTER_LEFT" minHeight="60.0" minWidth="400.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: gray;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tracker.TaskListItemController">
+   <children>
+      <HBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" spacing="12.0">
+      
+        <Label fx:id="taskTitle" graphicTextGap="0.0" maxHeight="-Infinity" text="Task Title Ex:  Make sure to do the thingTask Title Ex:  Make sure to do the thing" HBox.hgrow="ALWAYS">
+          <HBox.margin>
+            <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+          </HBox.margin>
+        </Label>
+         <opaqueInsets>
+            <Insets bottom="1.0" />
+         </opaqueInsets>
+      </HBox>
+      <HBox alignment="CENTER" fillHeight="false" spacing="12.0">
+         <children>
+          <Label fx:id="taskPriority" text="Task Priority">
+               <HBox.margin>
+                  <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+               </HBox.margin>
+            </Label>
+          <Label fx:id="taskType" text="Task Type">
+               <HBox.margin>
+                  <Insets bottom="3.0" left="6.0" right="6.0" top="3.0" />
+               </HBox.margin>
+            </Label>
+            <Region HBox.hgrow="ALWAYS" />
+            <CheckBox fx:id="checkbox_completed" mnemonicParsing="false" text="Completed" />
+            <Button fx:id="btn_editTask" minWidth="-Infinity" mnemonicParsing="false" prefWidth="40.0" text="Edit">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </HBox>
+   </children>
    <opaqueInsets>
       <Insets bottom="1.0" />
    </opaqueInsets>
-</HBox>
+   <padding>
+      <Insets bottom="3.0" left="6.0" right="6.0" top="3.0" />
+   </padding>
+</VBox>

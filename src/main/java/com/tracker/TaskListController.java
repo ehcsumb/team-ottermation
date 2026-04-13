@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
@@ -53,14 +52,9 @@ public class TaskListController {
     }
     for (Task task : tasks) {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tracker/task-list-item.fxml"));
-      HBox taskListItem = loader.load();
+      VBox taskListItem = loader.load();
       TaskListItemController controller = loader.getController();
-      controller.setItemData(
-          task.getTitle(),
-          task.getPriority().getText(),
-          task.getTaskType(),
-          task.getId()
-        );
+      controller.setItemData(task);
       taskList_vbox.getChildren().add(taskListItem);
     }
   }
