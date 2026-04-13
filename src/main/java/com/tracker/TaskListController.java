@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
@@ -25,6 +24,7 @@ public class TaskListController {
   @FXML public Button btn_addTask;
   @FXML private VBox taskList_vbox;
   private ArrayList<Task> tasks;
+  boolean showCompleted = true;
 
   @FXML
   public void initialize() {
@@ -52,17 +52,17 @@ public class TaskListController {
       return;
     }
     for (Task task : tasks) {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tracker/task-list-item.fxml"));
-      HBox taskListItem = loader.load();
-      TaskListItemController controller = loader.getController();
-      controller.setItemData(
-          task.getTitle(),
-          task.getPriority().getText(),
-          task.getTaskType(),
-          task.getId()
-        );
-      taskList_vbox.getChildren().add(taskListItem);
+      addTaskToList(task);
     }
+
+  }
+
+  private void addTaskToList(Task task) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tracker/task-list-item.fxml"));
+    VBox taskListItem = loader.load();
+    TaskListItemController controller = loader.getController();
+    controller.setItemData(task);
+    taskList_vbox.getChildren().add(taskListItem);
   }
 
   @FXML
@@ -76,6 +76,21 @@ public class TaskListController {
       SceneManager.showAdminDashboard();
     } else {
       SceneManager.showDashboard();
+    }
+  }
+
+  @FXML
+  public void toggleCompletedVisibility() throws IOException {
+    // update local state
+    showCompleted = !showCompleted;
+    // clear the vbox first
+    taskList_vbox.getChildren().clear();
+    // go through all the tasks and show or hide depending on showCompleted
+    for (Task task : tasks) {
+      if (!showCompleted && task.isCompleted()) {
+        continue;
+      }
+      addTaskToList(task);
     }
   }
 }

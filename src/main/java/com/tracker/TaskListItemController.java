@@ -1,8 +1,12 @@
 package com.tracker;
 
+import com.tracker.dao.TasksDAO;
+import java.sql.SQLException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+
 
 /**
  * Just the individual "card" items that represent a task.
@@ -17,20 +21,44 @@ public class TaskListItemController {
   @FXML private Label taskPriority;
   @FXML private Label taskType;
   @FXML private Button btn_editTask;
-  private Integer taskId;
+  @FXML private CheckBox checkbox_completed;
+  @FXML private Label label_dueDate;
+  private Task task;
 
-  public void setItemData(String title, String priority, String type, Integer taskId) {
-    taskTitle.setText(title);
-    taskPriority.setText(priority);
-    taskType.setText(type);
-    this.taskId = taskId;
+  public void setItemData(Task task) {
+    this.task = task;
+    taskTitle.setText(task.getTitle());
+    taskPriority.setText(task.getPriority().toString());
+    taskType.setText(task.getTaskType());
+    checkbox_completed.setSelected(task.isCompleted());
+    label_dueDate.setText(task.getDueDate().toString());
 
     btn_editTask.setOnAction(e -> handleEditBtn());
+    checkbox_completed.setOnAction(e -> handleCheckboxChange());
   }
 
   @FXML public void handleEditBtn() {
-    System.out.println("Edit item id: " + taskId);
+    System.out.println("Edit item id: " + task.getId());
     // TODO: navigate to editTask.fxml
+  }
+
+  @FXML public void handleCheckboxChange() {
+    // TODO: update database first, then do the rest
+    System.out.println("handleCheckboxChange: changing to " + !task.isCompleted());
+    try {
+      if (task.isCompleted()) {
+        task.setToIncomplete();
+      } else {
+        task.setToCompleted();
+      }
+      TasksDAO.updateTask(task);
+      // update UI
+      checkbox_completed.setSelected(task.isCompleted());
+    } catch (SQLException e) {
+      System.out.println("couldn't update database.");
+    }
+
+
   }
 }
 

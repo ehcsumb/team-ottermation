@@ -80,7 +80,7 @@ public class TasksDAO {
   }
 
   // TODO:  updateTask
-  public static boolean updateTask(Task task) {
+  public static boolean updateTask(Task task) throws SQLException {
     try {
       PreparedStatement ps = conn.prepareStatement(
           "UPDATE tasks SET user_id = ?, title = ?, description = ?, due_date = ?, priority = ?, task_type = ?, done = ? WHERE id = ?"

@@ -54,6 +54,7 @@ public class SceneManager {
             stage.setScene(new Scene(root));
         } catch (Exception e) {
             System.out.println("could not load " + filename + ": " + e.getMessage());
+            System.out.println(e.getCause().toString());
         }
     }
 }
