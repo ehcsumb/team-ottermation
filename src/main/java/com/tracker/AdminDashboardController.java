@@ -1,8 +1,12 @@
 
 package com.tracker;
 
+import com.tracker.dao.TasksDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 
 /**
  * Represents the admin dashboard controller, which manages the admin dashboard view
@@ -30,15 +34,64 @@ public class AdminDashboardController {
      */
     @FXML
     public void initialize() {
-        // represents our mockup
-        totalTasksLabel.setText("Total tasks: 13");
-        urgentCountLabel.setText("2");
-        highCountLabel.setText("4");
-        mediumCountLabel.setText("2");
-        lowCountLabel.setText("5");
+        loadDashboardStats();
     }
 
 
+    private void loadDashboardStats() {
+        User currentUser = SceneManager.currentUser;
+
+        if (currentUser != null) {
+            showNoTasksMessage();
+            return;
+        }
+
+        try{
+            ArrayList<Task> tasks = TasksDAO.getAllTasks(currentUser);
+
+            if (currentUser != null) {
+                showNoTasksMessage();
+                return;
+            }
+
+
+        int total = tasks.size();
+        int urgent = 0;
+        int high = 0;
+        int medium = 0;
+        int low = 0;
+
+        for(Task task : tasks) {
+            String priority = task.getPriority().getText();
+
+            switch(priority){
+                case "Urgent!" -> urgent++;
+                case "High" -> high++;
+                case "Medium" -> medium++;
+                case "Low" -> low++;
+            }
+        }
+
+        totalTasksLabel.setText(String.valueOf(total));
+        urgentCountLabel.setText(String.valueOf(urgent));
+        highCountLabel.setText(String.valueOf(high));
+        mediumCountLabel.setText(String.valueOf(medium));
+        lowCountLabel.setText(String.valueOf(low));
+
+        }catch(SQLException e){
+            System.out.println("Error loading Dashboard Stats: " + e.getMessage());
+            showNoTasksMessage();
+        }
+    }
+
+
+    private void showNoTasksMessage(){
+        totalTasksLabel.setText("No tasks found");
+        urgentCountLabel.setText("-");
+        highCountLabel.setText("-");
+        mediumCountLabel.setText("-");
+        lowCountLabel.setText("-");
+    }
     /**
      * Handles the action of the logout button.  Routes back to log-in scene
      */
