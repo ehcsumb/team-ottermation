@@ -27,12 +27,19 @@ public class SceneManager {
         load("register.fxml");
     }
 
-    // member 2 will build this
+    // member 2 scenes
     public static void showDashboard() {
         load("dashboard.fxml");
     }
 
-    // member 4 will build this
+    public static void showTaskList() { load("task-list.fxml"); }
+
+    public static void showAddTask() { load("task-add.fxml"); }
+
+    // member 3 scenes
+    public static void showEditTask() { load("task-edit.fxml"); }
+
+    // member 4 scenes
     public static void showAdminDashboard() {
         load("admin_dashboard.fxml");
     }
@@ -40,10 +47,6 @@ public class SceneManager {
     public static void showAdminSettings() {
         load("admin_settings.fxml");
     }
-
-    public static void showTaskList() { load("task-list.fxml"); }
-
-    public static void showAddTask() { load("task-add.fxml"); }
 
     // loads an fxml file and sets it as the current scene
     private static void load(String filename) {
