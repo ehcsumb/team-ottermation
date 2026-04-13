@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * such as admin settings.
  *
  * @author David Renteria
- * @version 0.1.0
+ * @version 0.2.0
  * @since 4/6/2026
  */
 public class AdminDashboardController {
@@ -35,51 +35,35 @@ public class AdminDashboardController {
     @FXML
     public void initialize() {
         loadDashboardStats();
-    }
 
+    }
 
     private void loadDashboardStats() {
         User currentUser = SceneManager.currentUser;
 
-        if (currentUser != null) {
+        if (currentUser == null) {
             showNoTasksMessage();
             return;
         }
 
-        try{
+        try {
             ArrayList<Task> tasks = TasksDAO.getAllTasks(currentUser);
 
-            if (currentUser != null) {
+            if (tasks == null || tasks.isEmpty()) {
                 showNoTasksMessage();
                 return;
             }
 
+            DashboardStats stats = DashboardStatsUtil.calculateStats(tasks);
 
-        int total = tasks.size();
-        int urgent = 0;
-        int high = 0;
-        int medium = 0;
-        int low = 0;
+            totalTasksLabel.setText("Total tasks: " + stats.getTotal());
+            urgentCountLabel.setText(String.valueOf(stats.getUrgent()));
+            highCountLabel.setText(String.valueOf(stats.getHigh()));
+            mediumCountLabel.setText(String.valueOf(stats.getMedium()));
+            lowCountLabel.setText(String.valueOf(stats.getLow()));
 
-        for(Task task : tasks) {
-            String priority = task.getPriority().getText();
-
-            switch(priority){
-                case "Urgent!" -> urgent++;
-                case "High" -> high++;
-                case "Medium" -> medium++;
-                case "Low" -> low++;
-            }
-        }
-
-        totalTasksLabel.setText(String.valueOf(total));
-        urgentCountLabel.setText(String.valueOf(urgent));
-        highCountLabel.setText(String.valueOf(high));
-        mediumCountLabel.setText(String.valueOf(medium));
-        lowCountLabel.setText(String.valueOf(low));
-
-        }catch(SQLException e){
-            System.out.println("Error loading Dashboard Stats: " + e.getMessage());
+        } catch (SQLException e) {
+            System.out.println("Error loading dashboard stats: " + e.getMessage());
             showNoTasksMessage();
         }
     }
