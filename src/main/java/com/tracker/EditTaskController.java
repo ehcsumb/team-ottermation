@@ -1,9 +1,15 @@
 package com.tracker;
 
+import com.tracker.dao.SQLiteTaskTypeDAO;
+import com.tracker.dao.TaskTypeDAO;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.lang.classfile.Label;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Loi Tong <br>
@@ -15,12 +21,29 @@ public class EditTaskController {
     @FXML private TextField taskTitle;
     @FXML private DatePicker dueDate;
     @FXML private ChoiceBox priorityDropDown;
-    @FXML private ChoiceBox taskTypeDropDown;
+    @FXML private ChoiceBox<TaskType> taskTypeDropDown;
     @FXML private TextArea taskDetails;
-    @FXML private Button deleteButton;
-    @FXML private Button saveButton;
+    @FXML private Button handleDeleteButton;
+    @FXML private Button handleSaveButton;
+    private final TaskTypeDAO taskTypeDAO = new SQLiteTaskTypeDAO();
+
 
     public void initialize()
+    {
+        //Grab the taskType from the database.
+        try {
+            taskTypeDropDown.getItems().addAll(taskTypeDAO.getAllTaskTypes());
+        } catch (SQLException e) {
+            System.out.println("Error while getting task types" + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void handleDeleteButton()
+    {}
+
+    @FXML
+    private void handleSaveButton()
     {}
 
 }
