@@ -10,7 +10,8 @@ public enum TaskPriority {
   LOW("Low"),
   MEDIUM("Medium"),
   HIGH("High"),
-  URGENT("Urgent!");
+  URGENT("Urgent!"),
+  UNKNOWN("Unknown");
 
   private final String text;
 
@@ -20,6 +21,16 @@ public enum TaskPriority {
 
   public String getText() {
     return text;
+  }
+
+  public static TaskPriority fromText(String text) {
+    for (TaskPriority priority : TaskPriority.values()) {
+      if (priority.text.equalsIgnoreCase(text)) {
+        return priority;
+      }
+    }
+    // no match, return unknown
+    return UNKNOWN;
   }
 
 }
