@@ -23,6 +23,11 @@ public enum TaskPriority {
     return text;
   }
 
+  @Override
+  public String toString() {
+    return getText();
+  }
+
   public static TaskPriority fromText(String text) {
     for (TaskPriority priority : TaskPriority.values()) {
       if (priority.text.equalsIgnoreCase(text)) {
