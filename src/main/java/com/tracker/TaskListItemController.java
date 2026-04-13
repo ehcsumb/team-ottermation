@@ -51,7 +51,7 @@ public class TaskListItemController {
       } else {
         task.setToCompleted();
       }
-      TasksDAO.updateT2ask(task);
+      TasksDAO.updateTask(task);
       // update UI
       checkbox_completed.setSelected(task.isCompleted());
     } catch (SQLException e) {

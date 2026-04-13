@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox alignment="CENTER_LEFT" minHeight="60.0" minWidth="400.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: gray;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tracker.TaskListItemController">
    <children>
@@ -17,6 +18,9 @@
           <HBox.margin>
             <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
           </HBox.margin>
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
         </Label>
          <opaqueInsets>
             <Insets bottom="1.0" />
