@@ -2,7 +2,6 @@ package com.tracker;
 
 /**
  * Represents task summary statistics for a dashboard.
- *
  * Stores the total number of tasks and the number of tasks
  * in each priority category.
  *

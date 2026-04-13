@@ -16,9 +16,10 @@ import java.util.ArrayList;
  * such as admin settings.
  *
  * @author David Renteria
- * @version 0.2.0
+ * @version 0.3.0
  * @since 4/6/2026
  */
+
 public class AdminDashboardController {
 
     @FXML private Label totalTasksLabel;
@@ -38,6 +39,11 @@ public class AdminDashboardController {
 
     }
 
+    /**
+     * Load task statistics for the current user and updates the dashboard
+     * Retrieves all tasks associated with the logged-in user from the database
+     * using the TaskDAO.  If no tasks found message stating "No tasks found" is displayed
+     */
     private void loadDashboardStats() {
         User currentUser = SceneManager.currentUser;
 
@@ -69,6 +75,10 @@ public class AdminDashboardController {
     }
 
 
+    /**
+     * Default message if no tasks exist for current user.
+     * Sets all labels to "No tasks found" or "-"
+     */
     private void showNoTasksMessage(){
         totalTasksLabel.setText("No tasks found");
         urgentCountLabel.setText("-");
