@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * @author Eric Holm
  * @since 4/12/26
  */
-public class UserTasksDAO {
+public class TasksDAO {
 
   private static Connection conn = Database.getConnection();
 
