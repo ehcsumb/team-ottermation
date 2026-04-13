@@ -60,6 +60,6 @@ public class AdminDashboardController {
      */
     @FXML
     private void handleViewTaskList() {
-        SceneManager.showDashboard();
+        SceneManager.showTaskList();
     }
 }
