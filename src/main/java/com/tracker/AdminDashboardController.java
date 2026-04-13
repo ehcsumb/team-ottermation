@@ -1,8 +1,12 @@
 
 package com.tracker;
 
+import com.tracker.dao.TasksDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 
 /**
  * Represents the admin dashboard controller, which manages the admin dashboard view
@@ -12,9 +16,10 @@ import javafx.scene.control.Label;
  * such as admin settings.
  *
  * @author David Renteria
- * @version 0.1.0
+ * @version 0.3.0
  * @since 4/6/2026
  */
+
 public class AdminDashboardController {
 
     @FXML private Label totalTasksLabel;
@@ -30,15 +35,57 @@ public class AdminDashboardController {
      */
     @FXML
     public void initialize() {
-        // represents our mockup
-        totalTasksLabel.setText("Total tasks: 13");
-        urgentCountLabel.setText("2");
-        highCountLabel.setText("4");
-        mediumCountLabel.setText("2");
-        lowCountLabel.setText("5");
+        loadDashboardStats();
+
+    }
+
+    /**
+     * Load task statistics for the current user and updates the dashboard
+     * Retrieves all tasks associated with the logged-in user from the database
+     * using the TaskDAO.  If no tasks found message stating "No tasks found" is displayed
+     */
+    private void loadDashboardStats() {
+        User currentUser = SceneManager.currentUser;
+
+        if (currentUser == null) {
+            showNoTasksMessage();
+            return;
+        }
+
+        try {
+            ArrayList<Task> tasks = TasksDAO.getAllTasks(currentUser);
+
+            if (tasks == null || tasks.isEmpty()) {
+                showNoTasksMessage();
+                return;
+            }
+
+            DashboardStats stats = DashboardStatsUtil.calculateStats(tasks);
+
+            totalTasksLabel.setText("Total tasks: " + stats.getTotal());
+            urgentCountLabel.setText(String.valueOf(stats.getUrgent()));
+            highCountLabel.setText(String.valueOf(stats.getHigh()));
+            mediumCountLabel.setText(String.valueOf(stats.getMedium()));
+            lowCountLabel.setText(String.valueOf(stats.getLow()));
+
+        } catch (SQLException e) {
+            System.out.println("Error loading dashboard stats: " + e.getMessage());
+            showNoTasksMessage();
+        }
     }
 
 
+    /**
+     * Default message if no tasks exist for current user.
+     * Sets all labels to "No tasks found" or "-"
+     */
+    private void showNoTasksMessage(){
+        totalTasksLabel.setText("No tasks found");
+        urgentCountLabel.setText("-");
+        highCountLabel.setText("-");
+        mediumCountLabel.setText("-");
+        lowCountLabel.setText("-");
+    }
     /**
      * Handles the action of the logout button.  Routes back to log-in scene
      */
