@@ -74,7 +74,8 @@ public class TaskListController {
   public void handleBackToDashboard() {
     if (SceneManager.currentUser.isAdmin()) {
       SceneManager.showAdminDashboard();
+    } else {
+      SceneManager.showDashboard();
     }
-    SceneManager.showDashboard();
   }
 }
