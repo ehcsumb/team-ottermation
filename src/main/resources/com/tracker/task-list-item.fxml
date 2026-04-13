@@ -23,9 +23,9 @@
             </font>
         </Label>
          <Region HBox.hgrow="ALWAYS" />
-         <Label fx:id="label_dueDate" minWidth="-Infinity" prefWidth="120.0" text="Label" HBox.hgrow="ALWAYS">
+         <Label fx:id="label_dueDate" alignment="CENTER_RIGHT" minWidth="-Infinity" prefWidth="140.0" text="Label" textAlignment="RIGHT" HBox.hgrow="ALWAYS">
             <graphic>
-               <Label prefWidth="60.0" text="Due Date: " />
+               <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefWidth="60.0" text="Due:" textAlignment="RIGHT" />
             </graphic>
             <HBox.margin>
                <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
