@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ToggleButton;
+
 
 /**
  * Just the individual "card" items that represent a task.
@@ -22,9 +22,8 @@ public class TaskListItemController {
   @FXML private Label taskType;
   @FXML private Button btn_editTask;
   @FXML private CheckBox checkbox_completed;
+  @FXML private Label label_dueDate;
   private Task task;
-  private Integer taskId;
-  private boolean complete;
 
   public void setItemData(Task task) {
     this.task = task;
@@ -32,6 +31,7 @@ public class TaskListItemController {
     taskPriority.setText(task.getPriority().toString());
     taskType.setText(task.getTaskType());
     checkbox_completed.setSelected(task.isCompleted());
+    label_dueDate.setText(task.getDueDate().toString());
 
     btn_editTask.setOnAction(e -> handleEditBtn());
     checkbox_completed.setOnAction(e -> handleCheckboxChange());

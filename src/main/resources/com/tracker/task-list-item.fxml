@@ -10,23 +10,32 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER_LEFT" minHeight="60.0" minWidth="400.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: gray;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tracker.TaskListItemController">
+<VBox alignment="CENTER_LEFT" minHeight="60.0" minWidth="300.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: gray;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tracker.TaskListItemController">
    <children>
-      <HBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" spacing="12.0">
+      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" spacing="12.0">
       
         <Label fx:id="taskTitle" graphicTextGap="0.0" maxHeight="-Infinity" text="Task Title Ex:  Make sure to do the thingTask Title Ex:  Make sure to do the thing" HBox.hgrow="ALWAYS">
           <HBox.margin>
             <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
           </HBox.margin>
             <font>
-               <Font name="System Bold" size="14.0" />
+               <Font name="Arial Narrow Bold" size="16.0" />
             </font>
         </Label>
+         <Region HBox.hgrow="ALWAYS" />
+         <Label fx:id="label_dueDate" minWidth="-Infinity" prefWidth="120.0" text="Label" HBox.hgrow="ALWAYS">
+            <graphic>
+               <Label prefWidth="60.0" text="Due Date: " />
+            </graphic>
+            <HBox.margin>
+               <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+            </HBox.margin>
+         </Label>
          <opaqueInsets>
             <Insets bottom="1.0" />
          </opaqueInsets>
       </HBox>
-      <HBox alignment="CENTER" fillHeight="false" spacing="12.0">
+      <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="12.0">
          <children>
           <Label fx:id="taskPriority" text="Task Priority">
                <HBox.margin>
