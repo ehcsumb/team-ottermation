@@ -25,10 +25,12 @@ public class TaskListItemController {
     taskType.setText(type);
     this.taskId = taskId;
 
-    btn_editTask.setOnAction(e -> {
-      // TODO: call Loi's EditItem method
-      System.out.println("Edit item id: " + taskId);
-    });
+    btn_editTask.setOnAction(e -> handleEditBtn());
+  }
+
+  @FXML public void handleEditBtn() {
+    System.out.println("Edit item id: " + taskId);
+    // TODO: navigate to editTask.fxml
   }
 }
 
