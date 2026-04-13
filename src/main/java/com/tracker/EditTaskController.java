@@ -20,7 +20,7 @@ public class EditTaskController {
 
     @FXML private TextField taskTitle;
     @FXML private DatePicker dueDate;
-    @FXML private ChoiceBox priorityDropDown;
+    @FXML private ChoiceBox<String> priorityDropDown;
     @FXML private ChoiceBox<TaskType> taskTypeDropDown;
     @FXML private TextArea taskDetails;
     @FXML private Button handleDeleteButton;
@@ -36,6 +36,8 @@ public class EditTaskController {
         } catch (SQLException e) {
             System.out.println("Error while getting task types" + e.getMessage());
         }
+        //Preset the priority list for now.
+        priorityDropDown.getItems().addAll("Low", "Medium", "High", "Urgent");
     }
 
     @FXML
