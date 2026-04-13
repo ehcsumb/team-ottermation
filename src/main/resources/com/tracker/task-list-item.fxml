@@ -6,31 +6,30 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 
-<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-  minWidth="-Infinity" spacing="12.0" xmlns="http://javafx.com/javafx/21"
-  xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tracker.TaskListItemController">
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" spacing="12.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tracker.TaskListItemController">
   <padding>
-    <Insets bottom="6.0" left="6.0" right="6.0" top="6.0"/>
+    <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
   </padding>
 
-  <Label fx:id="taskTitle" maxWidth="200.0"
-    text="Task Title Ex:  Make sure to do the thingTask Title Ex:  Make sure to do the thing"
-    HBox.hgrow="ALWAYS">
+  <Label fx:id="taskTitle" maxHeight="-Infinity" prefWidth="175.0" text="Task Title Ex:  Make sure to do the thingTask Title Ex:  Make sure to do the thing" HBox.hgrow="ALWAYS">
     <HBox.margin>
-      <Insets bottom="6.0" left="6.0" right="6.0" top="6.0"/>
+      <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
     </HBox.margin>
   </Label>
-  <Region HBox.hgrow="ALWAYS"/>
-  <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="244.0" spacing="12.0">
+  <Region HBox.hgrow="ALWAYS" />
+  <HBox alignment="CENTER_RIGHT" prefWidth="244.0" spacing="12.0">
     <padding>
-      <Insets bottom="6.0" left="6.0" right="6.0" top="6.0"/>
+      <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
     </padding>
-    <Label fx:id="taskPriority" minWidth="70.0" text="Task Priority"/>
-    <Label fx:id="taskType" minWidth="70.0" text="Task Type"/>
+    <Label fx:id="taskPriority" minWidth="70.0" text="Task Priority" />
+    <Label fx:id="taskType" minWidth="70.0" text="Task Type" />
     <Button fx:id="btn_editTask" minWidth="40.0" mnemonicParsing="false" text="Edit">
       <HBox.margin>
-        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0"/>
+        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
       </HBox.margin>
     </Button>
   </HBox>
+   <opaqueInsets>
+      <Insets bottom="1.0" />
+   </opaqueInsets>
 </HBox>
