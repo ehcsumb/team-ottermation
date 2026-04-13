@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -20,6 +21,8 @@ import javafx.scene.layout.VBox;
 public class TaskListController {
 
 
+  @FXML public Button btn_backToDashboard;
+  @FXML public Button btn_addTask;
   @FXML private VBox taskList_vbox;
   private ArrayList<Task> tasks;
 
