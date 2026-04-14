@@ -60,7 +60,7 @@
                 <Button onAction="#handleLogout" prefHeight="28.0" prefWidth="105.0" text="Logout" />
 
 
-                <Button onAction="#handleViewTasksList" prefHeight="28.0" prefWidth="105.0" text="View Task List" />
+                <Button onAction="#handleViewTasksList" prefHeight="28.0" prefWidth="100.0" text="View Task List" />
 
                 <Button onAction="#handleAddTask" prefHeight="28.0" prefWidth="105.0" text="Add Task" />
             </children>

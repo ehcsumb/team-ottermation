@@ -21,7 +21,7 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <ChoiceBox fx:id="priorityDropDown" prefHeight="25.0" prefWidth="90.0" />
+                  <ChoiceBox fx:id="priorityDropDown" prefHeight="25.0" prefWidth="83.0" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
