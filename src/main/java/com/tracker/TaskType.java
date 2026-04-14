@@ -5,7 +5,7 @@ package com.tracker;
  * Defines the category for example appointment or issue.
  *
  * @author David Renteria
- * @version 0.2.0
+ * @version 0.3.0
  * @since 4/7/2026
  */
 
@@ -29,6 +29,11 @@ public class TaskType {
     }
 
     public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
         return name;
     }
 }
