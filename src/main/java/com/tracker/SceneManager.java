@@ -14,6 +14,9 @@ public class SceneManager {
     // logged in user — set after login, read by any controller
     public static User currentUser;
 
+    // the current task that is in focus for edit (or any other single task focused workflows)
+    public static Task currentTask;
+
     public static void setStage(Stage s) {
         stage = s;
     }

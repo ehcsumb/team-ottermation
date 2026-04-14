@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
 
 /**
@@ -23,8 +24,9 @@ public class TaskListController {
   @FXML public Button btn_backToDashboard;
   @FXML public Button btn_addTask;
   @FXML private VBox taskList_vbox;
+  @FXML private CheckBox checkbox_showCompleted;
   private ArrayList<Task> tasks;
-  boolean showCompleted = true;
+  boolean showCompleted = false;
 
   @FXML
   public void initialize() {
@@ -35,18 +37,17 @@ public class TaskListController {
       tasks = null;
     }
     // populate the VBox with tasks
-    try {
-      populateTaskList();
-    } catch (IOException e) {
-      System.out.println("could not load file: " + e);
-    }
+    populateTaskList();
+
+    // show/hide completed
+    toggleCompletedVisibility();
   }
 
   public ArrayList<Task> getTaskList(User user) throws SQLException {
     return TasksDAO.getAllTasks(user);
   }
 
-  public void populateTaskList() throws IOException {
+  public void populateTaskList() {
     // check if the task list for the scene is empty
     if(tasks == null || tasks.isEmpty()) {
       return;
@@ -57,12 +58,16 @@ public class TaskListController {
 
   }
 
-  private void addTaskToList(Task task) throws IOException {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tracker/task-list-item.fxml"));
-    VBox taskListItem = loader.load();
-    TaskListItemController controller = loader.getController();
-    controller.setItemData(task);
-    taskList_vbox.getChildren().add(taskListItem);
+  private void addTaskToList(Task task) {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tracker/task-list-item.fxml"));
+      VBox taskListItem = loader.load();
+      TaskListItemController controller = loader.getController();
+      controller.setItemData(task);
+      taskList_vbox.getChildren().add(taskListItem);
+    } catch (IOException e) {
+      System.out.println("addToTaskList: couldn't load fxml");
+    }
   }
 
   @FXML
@@ -80,9 +85,9 @@ public class TaskListController {
   }
 
   @FXML
-  public void toggleCompletedVisibility() throws IOException {
+  public void toggleCompletedVisibility() {
     // update local state
-    showCompleted = !showCompleted;
+    showCompleted = checkbox_showCompleted.isSelected();
     // clear the vbox first
     taskList_vbox.getChildren().clear();
     // go through all the tasks and show or hide depending on showCompleted
