@@ -10,51 +10,78 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * //TODO:  add desc
+ * Responsible for CRUD operations related to the Tasks table. Public inputs are generally Task
+ * objects.
  *
  * @author Eric Holm
- * @since 4/12/26
+ * @since 4/13/26
  */
 public class TasksDAO {
 
-  private static Connection conn = Database.getConnection();
+  // last exception from anywhere in this class
+  private static Exception lastException;
+  // connection to database from Database
+  private static final Connection conn = Database.getConnection();
 
-  //TODO: addTask
-  public static boolean addTask(Task task) {
+  public static Exception getLastException() {
+    return lastException;
+  }
+
+  private static void setLastException(Exception e) {
+    lastException = e;
+  }
+
+  /**
+   * Accepts a task object and inserts its data into the database.
+   *
+   * @param task task to add to db
+   * @return - returns result of executeUpdate() as an Integer <br/> - <em>null</em> if there was an
+   * error
+   */
+  public static Integer addTask(Task task) {
     try {
       PreparedStatement ps = conn.prepareStatement(
-          "INSERT INTO tasks (user_id, title, description, due_date, priority, task_type, done) "
+          "INSERT INTO tasks"
+              + "(user_id, title, description, due_date, priority, task_type, done) "
               + "VALUES (?,?,?,?,?,?,?)"
       );
       ps.setInt(1, task.getUserId());
       ps.setString(2, task.getTitle());
-      ps.setString(3,task.getDescription());
+      ps.setString(3, task.getDescription());
       ps.setString(4, task.getDueDate().toString());
-      ps.setString(5,task.getPriority().getText());
+      ps.setString(5, task.getPriority().getText());
       ps.setString(6, task.getTaskType());
       ps.setInt(7, task.isCompleted() ? 1 : 0);
-      ps.executeUpdate();
+      return ps.executeUpdate();
 
-      // insert worked, registration successful
-      return true;
     } catch (SQLException e) {
       // unique constraint failed, username already taken
-      return false;
+      setLastException(e);
+      return null;
     }
   }
 
-  //TODO: getTaskById
-  public static Task getTaskById(int taskId) throws SQLException {
-    PreparedStatement ps = conn.prepareStatement(
-        "SELECT * FROM tasks WHERE id=(?)"
-    );
-    ps.setInt(1, taskId );
+  /**
+   * Fetches the record in the table task identified by its id value. Data from database is used to
+   * create a new Task object
+   *
+   * @param taskId taskId to find and fetch from db
+   * @return - <em>Task</em> object instantiated with data from db <br/> - <em>null</em> if no
+   * object is found or there is an error
+   */
+  private static Task getTaskById(int taskId) {
 
     try {
+      PreparedStatement ps = conn.prepareStatement(
+          "SELECT * FROM tasks WHERE id=(?)"
+      );
+      ps.setInt(1, taskId);
+
       ResultSet rs = ps.executeQuery();
-      // empty result?
+      // return null on empty result
       if (!rs.next()) {
         return null;
       }
@@ -73,6 +100,8 @@ public class TasksDAO {
       return task;
 
     } catch (SQLException e) {
+      // just return null on errors
+      setLastException(e);
       return null;
     }
 
@@ -80,7 +109,7 @@ public class TasksDAO {
   }
 
   // TODO:  updateTask
-  public static boolean updateTask(Task task) throws SQLException {
+  public static Integer updateTask(Task task) {
     try {
       PreparedStatement ps = conn.prepareStatement(
           "UPDATE tasks SET user_id = ?, title = ?, description = ?, due_date = ?, priority = ?, task_type = ?, done = ? WHERE id = ?"
@@ -93,47 +122,44 @@ public class TasksDAO {
       ps.setString(6, task.getTaskType());
       ps.setInt(7, task.isCompleted() ? 1 : 0);
       ps.setInt(8, task.getId()); // WHERE id = ?
-      ps.executeUpdate();
+      return ps.executeUpdate();
 
-      // must've worked!  return true
-      return true;
     } catch (SQLException e) {
       // any errors, return false
-      return false;
+      setLastException(e);
+      return null;
     }
   }
 
-  // TODO:  deleteTask
-  public static boolean deleteTask(Task task) {
+  // deleteTask
+  public static Integer deleteTask(Task task) {
+    // return result of deleteTaskById
     return deleteTaskById(task.getId());
   }
 
-  // TODO:  deleteTaskById
-  public static boolean deleteTaskById(int taskId) {
+  // deleteTaskById
+  public static Integer deleteTaskById(int taskId) {
     try {
       PreparedStatement ps = conn.prepareStatement(
           "DELETE FROM tasks WHERE id=?"
       );
       ps.setInt(1, taskId); // WHERE id = ?
-      ps.executeUpdate();
-
-      // must've worked!  return true
-      return true;
+      return ps.executeUpdate();
     } catch (SQLException e) {
       // any errors, return false
-      return false;
+      setLastException(e);
+      return null;
     }
   }
 
-  public static ArrayList<Task> getAllTasks(User user) throws SQLException {
+  public static ArrayList<Task> getAllTasks(User user) {
     ArrayList<Task> tasks = new ArrayList<>();
-    PreparedStatement ps = conn.prepareStatement(
-        "SELECT * FROM tasks WHERE user_id=(?) ORDER BY user_id ASC"
-    );
-    ps.setString(1, String.valueOf(user.getId()) );
-
-
     try {
+      PreparedStatement ps = conn.prepareStatement(
+          "SELECT * FROM tasks WHERE user_id=(?) ORDER BY user_id ASC"
+      );
+      ps.setString(1, String.valueOf(user.getId()));
+
       ResultSet rs = ps.executeQuery();
 
       while (rs.next()) {
@@ -148,11 +174,10 @@ public class TasksDAO {
             rs.getInt("user_id")
         );
 
-
         tasks.add(task);
       }
     } catch (SQLException e) {
-      // TODO: probably a better way to handle this
+      setLastException(e);
       return null;
     }
 

@@ -79,8 +79,8 @@ public class TaskAddController {
         SceneManager.currentUser.getId()
     );
     // add task to database
-    if (TasksDAO.addTask(task)) {
-      cancelAction();
+    if (TasksDAO.addTask(task) != null) {
+      cancelAction();  // used here to navigate back to task list scene
     } else {
       System.out.printf("handleAddTask:  error adding task to db");
       // TODO: Inform user of error via UI

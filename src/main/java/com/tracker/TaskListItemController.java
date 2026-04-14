@@ -49,7 +49,7 @@ public class TaskListItemController {
   @FXML public void handleCheckboxChange() {
     // TODO: update database first, then do the rest
     System.out.println("handleCheckboxChange: changing to " + !task.isCompleted());
-    try {
+
       if (task.isCompleted()) {
         task.setToIncomplete();
       } else {
@@ -58,9 +58,7 @@ public class TaskListItemController {
       TasksDAO.updateTask(task);
       // update UI
       checkbox_completed.setSelected(task.isCompleted());
-    } catch (SQLException e) {
-      System.out.println("couldn't update database.");
-    }
+
 
 
   }
