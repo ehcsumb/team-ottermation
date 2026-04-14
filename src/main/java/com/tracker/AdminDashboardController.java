@@ -52,7 +52,7 @@ public class AdminDashboardController {
             return;
         }
 
-        try {
+
             ArrayList<Task> tasks = TasksDAO.getAllTasks(currentUser);
 
             if (tasks == null || tasks.isEmpty()) {
@@ -68,10 +68,7 @@ public class AdminDashboardController {
             mediumCountLabel.setText(String.valueOf(stats.getMedium()));
             lowCountLabel.setText(String.valueOf(stats.getLow()));
 
-        } catch (SQLException e) {
-            System.out.println("Error loading dashboard stats: " + e.getMessage());
-            showNoTasksMessage();
-        }
+
     }
 
 
