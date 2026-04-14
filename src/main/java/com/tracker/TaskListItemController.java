@@ -39,7 +39,11 @@ public class TaskListItemController {
 
   @FXML public void handleEditBtn() {
     System.out.println("Edit item id: " + task.getId());
-    // TODO: navigate to editTask.fxml
+    // set this task to the currentTask in SceneManager
+    SceneManager.currentTask = task;
+    // navigate to editTask.fxml
+    SceneManager.showEditTask();
+
   }
 
   @FXML public void handleCheckboxChange() {
