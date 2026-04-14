@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<VBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="460.0" spacing="25.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tracker.UserDashboardController">
+<VBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="460.0" spacing="25.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tracker.UserDashboardController">
 
     <padding>
         <Insets bottom="25.0" left="25.0" right="25.0" top="30.0" />
@@ -60,12 +57,12 @@
 
         <HBox alignment="CENTER" prefHeight="63.0" prefWidth="410.0" spacing="40.0">
             <children>
-                <Button onAction="#handleLogout" prefHeight="28.0" prefWidth="100.0" text="Logout" />
+                <Button onAction="#handleLogout" prefHeight="28.0" prefWidth="105.0" text="Logout" />
 
 
-                <Button onAction="#handleViewTasksList" prefHeight="17.0" prefWidth="100.0" text="View Task List" />
+                <Button onAction="#handleViewTasksList" prefHeight="28.0" prefWidth="100.0" text="View Task List" />
 
-                <Button onAction="#handleAddTask" prefHeight="28.0" prefWidth="100.0" text="Add Task" />
+                <Button onAction="#handleAddTask" prefHeight="28.0" prefWidth="105.0" text="Add Task" />
             </children>
         </HBox>
 
