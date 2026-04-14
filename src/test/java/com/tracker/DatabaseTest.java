@@ -4,40 +4,57 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * unit tests for the database class.
+ * tests login and registration against a real sqlite database.
+ *
+ * @author Khiem Vo
+ * @since 4/7/2026
+ */
 public class DatabaseTest {
 
+    /**
+     * connects to the database before any tests run.
+     */
     @BeforeAll
     static void setup() {
-        // connect to database before running tests
         Database.connect();
     }
 
+    /**
+     * checks that the seeded admin account can log in successfully.
+     */
     @Test
     void testLoginWithAdminAccount() {
-        // admin is seeded by default, should always work
         User user = Database.login("admin", "admin");
         assertNotNull(user);
         assertEquals("admin", user.getUsername());
         assertTrue(user.isAdmin());
     }
 
+    /**
+     * checks that a wrong password returns null.
+     */
     @Test
     void testLoginWithWrongPassword() {
-        // wrong password should return null
         User user = Database.login("admin", "wrongpassword");
         assertNull(user);
     }
 
+    /**
+     * checks that a new unique username registers successfully.
+     */
     @Test
     void testRegisterNewUser() {
-        // new username should register successfully
         boolean result = Database.register("testuser", "testpass");
         assertTrue(result);
     }
 
+    /**
+     * checks that registering a duplicate username returns false.
+     */
     @Test
     void testRegisterDuplicateUsername() {
-        // duplicate username should fail
         Database.register("dupuser", "pass123");
         boolean result = Database.register("dupuser", "pass123");
         assertFalse(result);

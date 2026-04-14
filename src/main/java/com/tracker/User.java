@@ -1,26 +1,45 @@
 package com.tracker;
 
-// model class that represents a logged in user
-// stores the user's info after a successful login
+/**
+ * model class for a logged in user.
+ * stores the user's info after a successful login so any scene can access it.
+ *
+ * @author Khiem Vo
+ * @since 4/6/2026
+ */
 public class User {
 
     private int id;
     private String username;
     private String role;
 
-    // constructor called after a successful login
+    /**
+     * creates a user with the given id, username, and role.
+     *
+     * @param id the user's database id
+     * @param username the user's username
+     * @param role either "user" or "admin"
+     */
     public User(int id, String username, String role) {
         this.id       = id;
         this.username = username;
         this.role     = role;
     }
 
-    // getters so other classes can read the user's info
+    /** @return the user's database id */
     public int getId()          { return id; }
+
+    /** @return the user's username */
     public String getUsername() { return username; }
+
+    /** @return the user's role */
     public String getRole()     { return role; }
 
-    // returns true if the user is an admin
+    /**
+     * checks if this user has the admin role.
+     *
+     * @return true if role is "admin", false otherwise
+     */
     public boolean isAdmin() {
         return role.equals("admin");
     }

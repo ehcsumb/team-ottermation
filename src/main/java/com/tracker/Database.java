@@ -7,16 +7,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-// handles everything database related
-// one connection shared across the whole app
+/**
+ * handles all database operations for the app.
+ * creates tables on first run and provides methods for login and registration.
+ *
+ * @author Khiem Vo
+ * @since 4/6/2026
+ */
 public class Database {
 
     private static Connection conn;
 
-    // call this once from Main.java when the app starts
+    /**
+     * opens a connection to tracker.db and creates tables if they don't exist.
+     * call this once from main.java when the app starts.
+     */
     public static void connect() {
         try {
-            // creates tracker.db file if it doesn't exist
             conn = DriverManager.getConnection("jdbc:sqlite:tracker.db");
             createTables();
         } catch (SQLException e) {
@@ -24,7 +31,12 @@ public class Database {
         }
     }
 
-    // creates all tables if they don't exist yet
+    /**
+     * creates all four tables if they don't exist yet.
+     * also seeds the default admin account and task types.
+     *
+     * @throws SQLException if a table creation query fails
+     */
     private static void createTables() throws SQLException {
         Statement s = conn.createStatement();
 
@@ -69,13 +81,13 @@ public class Database {
             )
         """);
 
-        // seed a default admin account for testing
+        // seed default admin account
         s.execute("""
             INSERT OR IGNORE INTO users (username, password, role)
             VALUES ('admin', 'admin', 'admin')
         """);
 
-        // seed one settings row so there is always something to read
+        // seed one settings row
         s.execute("INSERT OR IGNORE INTO settings (id) VALUES (1)");
 
         // seed default task types
@@ -83,55 +95,64 @@ public class Database {
         s.execute("INSERT OR IGNORE INTO task_types (name) VALUES ('Issue')");
     }
 
-    // checks username and password against the database
-    // returns a User object if correct, null if not
+    /**
+     * checks a username and password against the users table.
+     *
+     * @param username the username to check
+     * @param password the password to check
+     * @return a user object if credentials match, null if not
+     */
     public static User login(String username, String password) {
         try {
-            // use prepared statement to safely insert user input
             PreparedStatement ps = conn.prepareStatement(
                     "SELECT id, username, role FROM users WHERE username = ? AND password = ?"
             );
             ps.setString(1, username);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
-
-            // if a row comes back, credentials are correct
             if (rs.next()) {
                 return new User(rs.getInt("id"), rs.getString("username"), rs.getString("role"));
             }
         } catch (SQLException e) {
             System.out.println("login error: " + e.getMessage());
         }
-
-        // no match found
         return null;
     }
 
-    // inserts a new user into the database
-    // returns true if successful, false if username already taken
+    /**
+     * inserts a new user into the users table with role 'user'.
+     *
+     * @param username the new username
+     * @param password the new password
+     * @return true if registration worked, false if username is already taken
+     */
     public static boolean register(String username, String password) {
         try {
-            // use prepared statement to safely insert user input
             PreparedStatement ps = conn.prepareStatement(
                     "INSERT INTO users (username, password) VALUES (?, ?)"
             );
             ps.setString(1, username);
             ps.setString(2, password);
             ps.executeUpdate();
-
-            // insert worked, registration successful
             return true;
         } catch (SQLException e) {
-            // unique constraint failed, username already taken
             return false;
         }
     }
 
-    // returns the shared connection so DAO classes can use it
+    /**
+     * returns the shared database connection.
+     * used by dao classes to run their own queries.
+     *
+     * @return the active sqlite connection
+     */
     public static Connection getConnection() {
         return conn;
     }
 
+    /**
+     * closes the database connection when the app shuts down.
+     */
     public static void close() {
         try {
             if (conn != null) conn.close();
