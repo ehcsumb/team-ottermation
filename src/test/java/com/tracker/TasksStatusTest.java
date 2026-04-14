@@ -1,7 +1,6 @@
-package com.tracker.dao;
+package com.tracker;
 
-import com.tracker.Database;
-import com.tracker.Task;
+import com.tracker.dao.TasksDAO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +10,7 @@ import java.sql.ResultSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TasksDAOTest {
+class TasksStatusTest {
 
     @BeforeEach
     void setUp() {
