@@ -72,7 +72,7 @@ public class TasksDAO {
    * @return - <em>Task</em> object instantiated with data from db <br/> - <em>null</em> if no
    * object is found or there is an error
    */
-  private static Task getTaskById(int taskId) {
+  public static Task getTaskById(int taskId) {
 
     try {
       PreparedStatement ps = conn.prepareStatement(
