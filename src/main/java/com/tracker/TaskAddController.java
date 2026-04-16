@@ -3,6 +3,7 @@ package com.tracker;
 import com.tracker.dao.SQLiteTaskTypeDAO;
 import com.tracker.dao.TasksDAO;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.ChoiceBox;
@@ -31,6 +32,8 @@ public class TaskAddController {
 
   @FXML public void initialize() {
 
+    // set default dueDate to one week later than now
+    datePicker_dueDate.setValue(LocalDate.now().plusWeeks(1));
     // get list of task types and populate task type dropdown
     SQLiteTaskTypeDAO dao = new SQLiteTaskTypeDAO();
     try {
@@ -82,7 +85,7 @@ public class TaskAddController {
     if (TasksDAO.addTask(task) != null) {
       cancelAction();  // used here to navigate back to task list scene
     } else {
-      System.out.printf("handleAddTask:  error adding task to db");
+      System.out.println("handleAddTask:  error adding task to db");
       // TODO: Inform user of error via UI
     }
   }
