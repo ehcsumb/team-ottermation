@@ -41,7 +41,7 @@ public class TaskListItemController {
     System.out.println("Edit item id: " + task.getId());
     // set this task to the currentTask in SceneManager
     SceneManager.currentTask = task;
-    // navigate to editTask.fxml
+    // navigate to task-edit.fxml
     SceneManager.showEditTask();
 
   }
