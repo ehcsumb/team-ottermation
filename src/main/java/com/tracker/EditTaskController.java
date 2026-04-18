@@ -23,13 +23,14 @@ public class EditTaskController {
     @FXML private CheckBox markComplete;
     @FXML private Button handleCancelButton;
     @FXML private Button handleSaveButton;
+    @FXML private Button handleDeleteButton;
           private Task currentTask;
           private final TaskTypeDAO taskTypeDAO = new SQLiteTaskTypeDAO();
 
-    public void initialize()
-    {
+    public void initialize() {
         handleSaveButton.setOnAction(event -> handleSaveButton());
         handleCancelButton.setOnAction(event -> handleCancelButton());
+        handleDeleteButton.setOnAction(event -> handleDeleteButton());
 
         //Grab the taskType from the database. Try catch is need in case there's an issue with the database.
         try {
@@ -62,17 +63,35 @@ public class EditTaskController {
         }
     }
 
+    @FXML
+    private void handleDeleteButton() {
+        ButtonType yesDeleteButton = new ButtonType("Yes, delete task.");
+        ButtonType noDeleteButton = new ButtonType("No! Cancel delete.");
+
+        Alert confirmDelete = new Alert(
+            Alert.AlertType.CONFIRMATION,
+            "Are you sure you want to delete this task?",
+            yesDeleteButton,
+            noDeleteButton
+        );
+
+        Optional<ButtonType> result = confirmDelete.showAndWait();
+        if (result.isEmpty() || result.get() != yesDeleteButton) {
+            return;
+        }
+
+        TasksDAO.deleteTask(currentTask);
+        SceneManager.showTaskList();
+    }
 
     @FXML
-    private void handleCancelButton()
-    {
+    private void handleCancelButton() {
         // Go back to the showTaskList without saving if yesCancelButton was selected.
         SceneManager.showTaskList();
     }
 
     @FXML
-    private void handleSaveButton()
-    {
+    private void handleSaveButton() {
         currentTask.setTitle(taskTitle.getText());
         currentTask.setDueDate(dueDate.getValue());
         currentTask.setDescription(taskDetails.getText());
