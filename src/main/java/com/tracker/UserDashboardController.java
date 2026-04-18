@@ -68,17 +68,18 @@ public class UserDashboardController {
     }
 
     @FXML
-    public void handleLogout()
-    {
+    public void handleLogout() {
         //Return to the login scene.
         SceneManager.showLogin();
     }
 
     @FXML
-    public void handleViewTasksList()
-    {SceneManager.showTaskList();}
+    public void handleViewTasksList() {
+        SceneManager.showTaskList();
+    }
 
     @FXML
-    public void handleAddTask()
-    {SceneManager.showAddTask();}
+    public void handleAddTask() {
+        SceneManager.showAddTask();
+    }
 }
