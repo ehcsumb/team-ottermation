@@ -9,6 +9,13 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 /**
+ * This is the controller for the EditTask scene.
+ * This scene load the current task information which is pass in by the task list scene.
+ * There is an alert for confirmation of deleting the task.
+ * There is also a bind to disable the save button if there isn't a task title.
+ */
+
+/**
  * @author Loi Tong <br>
  *     created: 4/11/2026
  * @since 0.1.0
@@ -39,7 +46,7 @@ public class EditTaskController {
             System.out.println("Error while getting task types" + e.getMessage());
         }
 
-        // Load priority dropdown. Loop through each enum value and add it to the dropdown.
+        //Load priority dropdown. Loop through each enum value and add it to the dropdown.
         for (TaskPriority priority : TaskPriority.values()) {
             priorityDropDown.getItems().add(priority.getText());
         }
@@ -61,27 +68,39 @@ public class EditTaskController {
                 break;
             }
         }
+
+        //Disable save button if task tittle is empty.
+        handleSaveButton.disableProperty().bind(
+                taskTitle.textProperty().isEmpty()
+        );
     }
 
     @FXML
     private void handleDeleteButton() {
+        //Add two button for the alert box.
         ButtonType yesDeleteButton = new ButtonType("Yes, delete task.");
         ButtonType noDeleteButton = new ButtonType("No! Cancel delete.");
-
+        //Ask for confirmation
         Alert confirmDelete = new Alert(
             Alert.AlertType.CONFIRMATION,
             "Are you sure you want to delete this task?",
             yesDeleteButton,
             noDeleteButton
         );
-
+        //Return to page if not Yes.
         Optional<ButtonType> result = confirmDelete.showAndWait();
         if (result.isEmpty() || result.get() != yesDeleteButton) {
             return;
         }
 
-        TasksDAO.deleteTask(currentTask);
-        SceneManager.showTaskList();
+        try {
+            //Call TasksDAO to delete current Task.
+            TasksDAO.deleteTask(currentTask);
+            //Return to show task list scene.
+            SceneManager.showTaskList();
+        } catch (Exception e) {
+            System.out.println("Error while deleting" + e.getMessage());
+        }
     }
 
     @FXML
@@ -92,12 +111,12 @@ public class EditTaskController {
 
     @FXML
     private void handleSaveButton() {
+        //Set all the value to the methods.
         currentTask.setTitle(taskTitle.getText());
         currentTask.setDueDate(dueDate.getValue());
         currentTask.setDescription(taskDetails.getText());
         currentTask.setPriority(TaskPriority.fromText(priorityDropDown.getValue()));
         currentTask.setTaskType(taskTypeDropDown.getValue().getName());
-
         if (markComplete.isSelected()) {
             currentTask.setToCompleted();
         } else {
