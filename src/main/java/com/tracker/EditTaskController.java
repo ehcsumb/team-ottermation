@@ -106,6 +106,19 @@ public class EditTaskController {
     @FXML
     private void handleCancelButton() {
         // Go back to the showTaskList without saving if yesCancelButton was selected.
+        ButtonType yesCancelButton = new ButtonType("Yes, I want to cancel.");
+        ButtonType noCancelButton = new ButtonType("No, I want to save.");
+        // Alert box to confirm cancel button.
+        Alert confirm = new Alert(
+                Alert.AlertType.CONFIRMATION,"Are you sure you want to cancel? Changes will not be saved.",
+                yesCancelButton, noCancelButton
+        );
+        // Read the button input
+        Optional<ButtonType> result = confirm.showAndWait();
+        //Check for noCancelButton
+        if (result.isEmpty() || result.get() != yesCancelButton) {
+            return;
+        }
         SceneManager.showTaskList();
     }
 
