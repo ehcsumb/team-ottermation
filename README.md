@@ -5,7 +5,7 @@
 * Eric H
 * David R
 
-GitHub: (https://github.com/ehcsumb/team-ottermation
+GitHub: https://github.com/ehcsumb/team-ottermation
 
 Stack: JavaFX · FXML · SQLite (JDBC) · Gradle · JUnit 5
 
@@ -15,16 +15,16 @@ Productivity Tracker is a JavaFX desktop app for managing tasks. Regular users r
 
 ## Use Cases
 
-| Use Case | Owner | Main Flow | Alternate Flow |
-|---|---|---|---|
+| Use Case | Owner | Main Flow | Alternate Flow                      |
+|---|---|---|-------------------------------------|
 | User Registration | Khiem | Fill username/password on Register scene; validate uniqueness; save to DB; return to Login. | Username taken: error alert, retry. |
-| User Login | Khiem | Enter credentials; validate against DB; route to User or Admin dashboard by role. | Invalid credentials: error alert. |
-| Add Task | Eric | Fill title, description, due date, priority, type; save to tasks table. | Task limit reached: alert shown. |
-| View Tasks | Eric | Query tasks for logged-in user; display in TableView. | No tasks: prompt to add one. |
-| Edit Task | Loi | Select task, edit fields, save; update DB record. | Cancel: no DB changes. |
-| Mark Complete | Loi | Click Mark Complete; set status=Complete in DB; refresh list. | Already complete: Reopen option. |
-| Update Settings | David | Edit max tasks, default priority; save to settings table. | Invalid value: validation error. |
-| Manage Task Types | David | Add/enable/disable task types; changes reflect in user dropdowns. | Duplicate name: error alert. |
+| User Login | Khiem | Enter credentials; validate against DB; route to User or Admin dashboard by role. | Invalid credentials: error alert.   |
+| Add Task | Eric | Fill title, description, due date, priority, type; save to tasks table. | Cancel                              |
+| View Tasks | Eric | Query tasks for logged-in user; display in TableView. | Go back                             |
+| Edit Task | Loi | Select task, edit fields, save; update DB record. | Cancel: no DB changes.              |
+| Mark Complete | Loi | Click Mark Complete; set status=Complete in DB; refresh list. | Already complete: Reopen option.    |
+| Update Settings | David | Edit max tasks, default priority; save to settings table. | Invalid value: validation error.    |
+| Manage Task Types | David | Add/enable/disable task types; changes reflect in user dropdowns. | Duplicate name: error alert.        |
 
 ## Entity Relationship Diagram
 
@@ -35,14 +35,16 @@ Productivity Tracker is a JavaFX desktop app for managing tasks. Regular users r
 | settings | settingId (PK), maxTasks, defaultPriority | Global config (standalone) |
 | task_types | typeId (PK), typeName, isEnabled | |
 
+![Alt text](/erd.png "ERD Diagram")
+
 ## Testing Plan
 
-| Area | Key Test Cases | Owner |
-|---|---|---|
-| UserDAO | Create user, find by username, reject duplicate, validate login | Mem 1 |
-| TaskDAO | Insert task, get tasks by user, update task, delete task | Mem 2 |
-| Task Status | Mark complete, reopen task, edit fields and verify persistence | Mem 3 |
-| Settings/Types | Load defaults, update maxTasks, add type, disable type | Mem 4 |
+| Area | Key Test Cases | Owner   |
+|---|---|---------|
+| UserDAO | Create user, find by username, reject duplicate, validate login | Khiem V |
+| TaskDAO | Insert task, get tasks by user, update task, delete task | Eric H  |
+| Task Status | Mark complete, reopen task, edit fields and verify persistence | Loi T   |
+| Settings/Types | Load defaults, update maxTasks, add type, disable type | David R |
 
 ## Scene Mockups
 
