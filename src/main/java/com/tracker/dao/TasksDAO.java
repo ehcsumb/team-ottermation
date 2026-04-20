@@ -108,7 +108,6 @@ public class TasksDAO {
 
   }
 
-  // TODO:  updateTask
   public static Integer updateTask(Task task) {
     try {
       PreparedStatement ps = conn.prepareStatement(
