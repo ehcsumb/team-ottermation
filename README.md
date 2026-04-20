@@ -35,7 +35,9 @@ Productivity Tracker is a JavaFX desktop app for managing tasks. Regular users r
 | settings | settingId (PK), maxTasks, defaultPriority | Global config (standalone) |
 | task_types | typeId (PK), typeName, isEnabled | |
 
-![Alt text](/erd.png "ERD Diagram")
+![ERD Diagram](/erd.png "ERD Diagram")
+
+### [UML Diagrams](uml.md)
 
 ## Testing Plan
 
@@ -67,3 +69,5 @@ Productivity Tracker is a JavaFX desktop app for managing tasks. Regular users r
 | Loi | User Dashboard, Edit Task | Create tasks table; Build add-task scene; TaskDAO insert/query | name/user-dashboard, name/add-task, name/task-dao |
 | Eric | Task List, Add Task, Mark Complete | Build task list TableView; Edit task scene; Mark complete logic | name/task-list, name/edit-task, name/task-details |
 | David | Admin Dashboard, Settings, Task Types | Create settings table; Admin settings scene; Task type mgmt | name/admin-dashboard, name/admin-settings, name/task-types |
+
+
