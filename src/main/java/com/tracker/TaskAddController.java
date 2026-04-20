@@ -1,5 +1,6 @@
 package com.tracker;
 
+import com.tracker.dao.SQLiteSettingsDAO;
 import com.tracker.dao.SQLiteTaskTypeDAO;
 import com.tracker.dao.TasksDAO;
 import java.sql.SQLException;
@@ -57,7 +58,12 @@ public class TaskAddController {
       choiceBox_priority.getItems().add(p);
     }
     // set default item
-    choiceBox_priority.setValue(TaskPriority.MEDIUM);
+    try {
+      SQLiteSettingsDAO s = new SQLiteSettingsDAO();
+      choiceBox_priority.setValue(TaskPriority.fromText(s.getDefaultPriority()));
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
 
   }
 
