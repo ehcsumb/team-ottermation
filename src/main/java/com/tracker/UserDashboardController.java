@@ -1,10 +1,13 @@
 package com.tracker;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import com.tracker.dao.TasksDAO;
-//import java.sql.SQLException;
 import java.util.ArrayList;
+import javafx.beans.binding.Bindings;
+import javafx.scene.control.Button;
 /*
  * This class is for the Main dashboard the user will see after the login page.
  * The User dashboard display a count of each priority.
@@ -23,10 +26,23 @@ public class UserDashboardController {
     @FXML private Label highCountLabel;
     @FXML private Label mediumCountLabel;
     @FXML private Label lowCountLabel;
+    @FXML private Button viewTasksList;
+
+    private ObservableList<Task> tasksObservableList = FXCollections.observableArrayList();
 
     public void initialize()
     {
+
         loadDashboardStats();
+
+        //Bind my viewTaskList button to an Observable list and check if it's empty. If empty disable button.
+        viewTasksList.disableProperty().bind(
+                Bindings.createBooleanBinding(
+                        () -> tasksObservableList.isEmpty(),
+                        tasksObservableList
+                )
+        );
+
     }
 
     private void loadDashboardStats() {
@@ -45,8 +61,11 @@ public class UserDashboardController {
                 return;
             }
 
-            DashboardStats stats = DashboardStatsUtil.calculateStats(tasks);
+            //Also add a tasks to the observable list to check if it's empty.
+            tasksObservableList.addAll(tasks);
 
+            DashboardStats stats = DashboardStatsUtil.calculateStats(tasks);
+            //Load values.
             totalTasksLabel.setText("Total tasks: " + stats.getTotal());
             urgentCountLabel.setText(String.valueOf(stats.getUrgent()));
             highCountLabel.setText(String.valueOf(stats.getHigh()));
@@ -68,17 +87,20 @@ public class UserDashboardController {
     }
 
     @FXML
-    public void handleLogout()
-    {
+    public void handleLogout() {
         //Return to the login scene.
         SceneManager.showLogin();
     }
 
     @FXML
-    public void handleViewTasksList()
-    {SceneManager.showTaskList();}
+    public void handleViewTasksList() {
+        //Go to show Task list scene.
+        SceneManager.showTaskList();
+    }
 
     @FXML
-    public void handleAddTask()
-    {SceneManager.showAddTask();}
+    public void handleAddTask() {
+        //Go to add Task scene.
+        SceneManager.showAddTask();
+    }
 }
