@@ -19,7 +19,7 @@
             <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
           </HBox.margin>
             <font>
-               <Font name="Arial Narrow Bold" size="16.0" />
+               <Font name="Arial Bold" size="14.0" />
             </font>
         </Label>
          <Region HBox.hgrow="ALWAYS" />

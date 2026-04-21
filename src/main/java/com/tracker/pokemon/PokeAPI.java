@@ -65,6 +65,10 @@ public class PokeAPI {
     }
   }
 
+  /**
+   * NOT USING ALL THIS, WAS OVERTHINKING!
+   * WENT FOR SIMPLE
+
   public static class Pokemon {
     private static String base = "pokemon/";
     private int id;
@@ -118,5 +122,6 @@ public class PokeAPI {
       }
     }
   }
+   */
 
 }

@@ -1,7 +1,6 @@
 package com.tracker;
 
 import com.tracker.dao.TasksDAO;
-import com.tracker.pokemon.PokemonPaneController;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,6 +27,7 @@ public class TaskListController {
   @FXML private VBox taskList_vbox;
   @FXML private CheckBox checkbox_showCompleted;
   @FXML private VBox pokeHolderRight;
+  @FXML private VBox pokeHolderLeft;
   private ArrayList<Task> tasks;
   boolean showCompleted = false;
 
@@ -82,12 +82,17 @@ public class TaskListController {
   }
 
   private void addPokemon() {
+    placePokemon(pokeHolderRight);
+    placePokemon(pokeHolderLeft);
+  }
+
+  private void placePokemon(VBox pokeHolder) {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("pokemon/pokemon-pane.fxml"));
       Pane pokeImage = loader.load();
-      PokemonPaneController controller = loader.getController();
-      controller.initialize();
-      pokeHolderRight.getChildren().add(pokeImage);
+      // NOTE: FXMLLoader.load() already invokes the controller's @FXML initialize()
+      // automatically — do NOT call controller.initialize() again.
+      pokeHolder.getChildren().add(pokeImage);
     } catch (IOException e) {
       System.out.println("addPokemon: oops! : " + e.getCause());
     }
