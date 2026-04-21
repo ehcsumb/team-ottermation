@@ -10,19 +10,21 @@
 <?import javafx.scene.text.Text?>
 
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" spacing="12.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tracker.TaskListController">
-    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Task list" textAlignment="CENTER" wrappingWidth="311.21630859375">
-      <font>
-        <Font size="27.0" />
-      </font>
-    </Text>
-    <Button fx:id="btn_addTask" defaultButton="true" mnemonicParsing="false" onAction="#handleAddTask" text="Add New Task">
-      <VBox.margin>
-        <Insets />
-      </VBox.margin>
-    </Button>
-   <HBox alignment="TOP_CENTER">
+   <HBox>
       <children>
-         <CheckBox fx:id="checkbox_showCompleted" mnemonicParsing="false" onAction="#toggleCompletedVisibility" text="Show Completed" />
+         <VBox fx:id="pokeHolderLeft" alignment="CENTER" HBox.hgrow="ALWAYS" />
+         <VBox alignment="CENTER" spacing="12.0">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Task list" textAlignment="CENTER" wrappingWidth="150.0">
+                  <font>
+                    <Font size="27.0" />
+                  </font>
+                </Text>
+                <Button fx:id="btn_addTask" defaultButton="true" mnemonicParsing="false" onAction="#handleAddTask" text="Add New Task" />
+               <CheckBox fx:id="checkbox_showCompleted" mnemonicParsing="false" onAction="#toggleCompletedVisibility" text="Show Completed" />
+            </children>
+         </VBox>
+         <VBox fx:id="pokeHolderRight" alignment="CENTER" HBox.hgrow="ALWAYS" />
       </children>
    </HBox>
   <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">

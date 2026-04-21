@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -25,6 +26,8 @@ public class TaskListController {
   @FXML public Button btn_addTask;
   @FXML private VBox taskList_vbox;
   @FXML private CheckBox checkbox_showCompleted;
+  @FXML private VBox pokeHolderRight;
+  @FXML private VBox pokeHolderLeft;
   private ArrayList<Task> tasks;
   boolean showCompleted = false;
 
@@ -41,6 +44,9 @@ public class TaskListController {
 
     // show/hide completed
     toggleCompletedVisibility();
+
+    // add the pokemon
+    addPokemon();
   }
 
   public ArrayList<Task> getTaskList(User user) throws SQLException {
@@ -58,6 +64,11 @@ public class TaskListController {
 
   }
 
+  /**
+   * Loads the task item FXML and controller and adds the provided
+   * task to the task list
+   * @param task task to add to task list
+   */
   private void addTaskToList(Task task) {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/tracker/task-list-item.fxml"));
@@ -67,6 +78,23 @@ public class TaskListController {
       taskList_vbox.getChildren().add(taskListItem);
     } catch (IOException e) {
       System.out.println("addToTaskList: couldn't load fxml");
+    }
+  }
+
+  private void addPokemon() {
+    placePokemon(pokeHolderRight);
+    placePokemon(pokeHolderLeft);
+  }
+
+  private void placePokemon(VBox pokeHolder) {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("pokemon/pokemon-pane.fxml"));
+      Pane pokeImage = loader.load();
+      // NOTE: FXMLLoader.load() already invokes the controller's @FXML initialize()
+      // automatically — do NOT call controller.initialize() again.
+      pokeHolder.getChildren().add(pokeImage);
+    } catch (IOException e) {
+      System.out.println("addPokemon: oops! : " + e.getCause());
     }
   }
 
